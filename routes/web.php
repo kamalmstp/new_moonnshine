@@ -3,6 +3,9 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\Cuti;
 use App\Models\Mutasi;
+use App\Http\Controllers\LaporanPegawaiController;
+
+Route::get('/laporan/pegawai', [LaporanPegawaiController::class, 'index'])->name('laporan.pegawai');
 
 
 Route::get('/arsip/{id}', function ($id) {

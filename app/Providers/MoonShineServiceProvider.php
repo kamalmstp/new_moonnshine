@@ -27,6 +27,8 @@ use App\MoonShine\Resources\PerjalananDinasResource;
 use App\MoonShine\Resources\SuratMasukResource;
 use App\MoonShine\Resources\SuratKeluarResource;
 use App\MoonShine\Resources\ArsipDokumenResource;
+use App\MoonShine\Pages\LaporanPegawaiPage;
+use App\MoonShine\Pages\LaporanCutiPage;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -62,6 +64,8 @@ class MoonShineServiceProvider extends ServiceProvider
             ])
             ->pages([
                 ...$config->getPages(),
+                LaporanPegawaiPage::class,
+                LaporanCutiPage::class,
             ])
         ;
     }

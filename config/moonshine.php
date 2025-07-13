@@ -20,9 +20,9 @@ use MoonShine\Laravel\Pages\LoginPage;
 use MoonShine\Laravel\Pages\ProfilePage;
 
 return [
-    'title' => env('MOONSHINE_TITLE', 'MoonShine'),
-    'logo' => 'vendor/moonshine/logo.svg',
-    'logo_small' => 'vendor/moonshine/logo-small.svg',
+    'title' => env('MOONSHINE_TITLE', 'Simpeg SMAN 2'),
+    'logo' => 'logo-app.png',
+    'logo_small' => 'logo-app.png',
 
     'theme' => \AweUx\MoonShineTheme\Theme::class,
 
