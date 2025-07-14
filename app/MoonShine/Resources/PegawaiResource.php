@@ -22,52 +22,24 @@ use MoonShine\Fields\Filters\TextFilter;
 use MoonShine\Fields\Filters\SelectFilter;
 use MoonShine\Enums\PageType;
 
-/**
- * @extends ModelResource<Pegawai>
- */
 class PegawaiResource extends ModelResource
 {
     protected string $model = Pegawai::class;
     protected string $title = 'Pegawai';
-    protected string $subTitle = 'Manajemen Data Pegawai'; // Subtitle yang lebih deskriptif
-    protected string $column = 'nama_lengkap'; // Kolom yang akan menjadi judul di daftar item
-    protected array $with = ['pangkatGolongan', 'mataPelajaran']; // Eager load relasi untuk index dan detail
+    protected string $subTitle = 'Manajemen Data Pegawai';
+    protected string $column = 'nama_lengkap';
+    protected array $with = ['pangkatGolongan', 'mataPelajaran'];
 
-    /**
-     * Mengatur label tunggal untuk tampilan UI.
-     *
-     * @return string
-     */
     public function setLabel(): string
     {
         return 'Pegawai';
     }
 
-    /**
-     * Mengatur label jamak untuk tampilan UI.
-     *
-     * @return string
-     */
     public function setPluralLabel(): string
     {
         return 'Pegawai';
     }
 
-    /**
-     * Mengatur ikon untuk menu di sidebar Moonshine.
-     *
-     * @return string
-     */
-    public function setIcon(): string
-    {
-        return 'heroicons.outline.users'; // Ikon untuk pegawai
-    }
-
-    /**
-     * Mendefinisikan fields yang akan ditampilkan di halaman indeks (daftar item).
-     *
-     * @return list<FieldContract>
-     */
     protected function indexFields(): iterable
     {
         return [
@@ -82,12 +54,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * Mendefinisikan fields yang akan digunakan dalam formulir tambah/edit.
-     * Menggunakan Block untuk mengelompokkan fields.
-     *
-     * @return list<ComponentContract|FieldContract>
-     */
     protected function formFields(): iterable
     {
         return [
@@ -234,9 +200,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * @return list<FieldContract>
-     */
     protected function detailFields(): iterable
     {
         return [
@@ -279,11 +242,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * Mendefinisikan filter yang akan digunakan pada daftar item.
-     *
-     * @return array
-     */
     public function filters(): array
     {
         return [
@@ -308,11 +266,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * Mendefinisikan aksi yang tersedia pada resource (misal: delete, mass delete).
-     *
-     * @return array
-     */
     public function actions(): array
     {
         return [
@@ -321,12 +274,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * Mendefinisikan aturan validasi untuk fields.
-     *
-     * @param Pegawai $item
-     * @return array<string, string[]|string>
-     */
     protected function rules(mixed $item): array
     {
         return [
@@ -361,11 +308,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    /**
-     * Mengatur halaman default untuk resource.
-     *
-     * @return PageType
-     */
     public function getPageType(): PageType
     {
         return PageType::INDEX;

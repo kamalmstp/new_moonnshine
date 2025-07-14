@@ -26,10 +26,10 @@ class RiwayatPendidikanResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Tingkat', 'tingkat'),
             Text::make('Instansi', 'instansi'),
+            Text::make('Program Studi', 'program_studi'),
             Text::make('Tahun Lulus', 'tahun_lulus'),
         ];
     }
@@ -72,7 +72,13 @@ class RiwayatPendidikanResource extends ModelResource
      */
     protected function detailFields(): iterable
     {
-        return $this->formFields();
+        return [
+            Text::make('Pegawai', 'pegawai.nama_lengkap'),
+            Text::make('Tingkat', 'tingkat'),
+            Text::make('Instansi', 'instansi'),
+            Text::make('Program Studi', 'program_studi'),
+            Text::make('Tahun Lulus', 'tahun_lulus'),
+        ];
     }
 
     protected function rules(mixed $item): array
