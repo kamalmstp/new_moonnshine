@@ -29,7 +29,7 @@ class MataPelajaranResource extends ModelResource
     {
         return [
             ID::make()->sortable(),
-            Text::make('Mata Pelajaran', 'nama')->sortable(),
+            Text::make('Mata Pelajaran', 'nama_mapel')->sortable(),
         ];
     }
 
@@ -40,7 +40,7 @@ class MataPelajaranResource extends ModelResource
     {
         return [
             Box::make([
-                Text::make('Mata Pelajaran', 'nama'),
+                Text::make('Mata Pelajaran', 'nama_mapel'),
             ])
         ];
     }
@@ -51,7 +51,7 @@ class MataPelajaranResource extends ModelResource
     protected function detailFields(): iterable
     {
         return [
-            Text::make('Mata Pelajaran', 'nama')
+            Text::make('Mata Pelajaran', 'nama_mapel')
         ];
     }
 
@@ -64,7 +64,7 @@ class MataPelajaranResource extends ModelResource
     protected function rules(mixed $item): array
     {
         return [
-            'nama' => ['required', 'string', 'max:100'],
+            'nama_mapel' => ['required', 'string', 'max:100'],
         ];
     }
 }

@@ -33,8 +33,8 @@ class PegawaiResource extends ModelResource
             ID::make(),
             Text::make('NIP', 'nip')->sortable(),
             Text::make('Nama Lengkap', 'nama_lengkap')->sortable(),
-            Enum::make('Status Kepegawaian', 'status_kepegawaian'),
-            Enum::make('Jabatan', 'jabatan'),
+            Text::make('Status Kepegawaian', 'status_kepegawaian'),
+            Text::make('Jabatan', 'jabatan'),
         ];
     }
 
