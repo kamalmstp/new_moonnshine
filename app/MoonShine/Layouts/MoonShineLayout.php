@@ -48,7 +48,7 @@ use App\MoonShine\Resources\PerjalananDinasResource;
 use App\MoonShine\Resources\SuratMasukResource;
 use App\MoonShine\Resources\SuratKeluarResource;
 use App\MoonShine\Resources\ArsipDokumenResource;
-use App\MoonShine\Pages\{LaporanPegawaiPage, LaporanCutiPage};
+use App\MoonShine\Pages\{Dashboard, LaporanPegawaiPage, LaporanCutiPage, LaporanMutasiPage, LaporanPensiunPage};
 
 final class MoonShineLayout extends AppLayout
 {
@@ -59,9 +59,21 @@ final class MoonShineLayout extends AppLayout
         ];
     }
 
+    protected function getFaviconComponent(): Favicon
+    {
+        return parent::getFaviconComponent()->customAssets([
+            'apple-touch' => 'logo-icon.ico',
+            '32' => 'logo-icon.ico',
+            '16' => 'logo-icon.ico',
+            'safari-pinned-tab' => 'logo-icon.ico',
+            'web-manifest' => 'logo-icon.ico',
+        ]);
+    }
+
     protected function menu(): array
     {
         return [
+            MenuItem::make('Dashboard', Dashboard::class)->icon('home'),
             // Grup Kepegawaian
             MenuGroup::make('Kepegawaian', [
                 MenuItem::make('Pegawai', PegawaiResource::class)->icon('user-group'),
@@ -92,8 +104,12 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Laporan Pegawai', LaporanPegawaiPage::class)
                     ->icon('users'),
                 MenuItem::make('Laporan Cuti', LaporanCutiPage::class)
-                    ->icon('document')
-            ]),
+                    ->icon('document'),
+                MenuItem::make('Laporan Mutasi', LaporanMutasiPage::class)
+                    ->icon('document'),
+                MenuItem::make('Laporan Pensiun', LaporanPensiunPage::class)
+                    ->icon('document'),
+            ])->icon('document-chart-bar'),
 
             // Grup Referensi Data (Pindah ke Bawah)
             MenuGroup::make('Referensi Data', [
@@ -124,12 +140,12 @@ final class MoonShineLayout extends AppLayout
     protected function getFooterMenu(): array
     {
         return [
-            'https://example.com' => 'Custom link',
+            'https://sman2banjarmasin.sch.id/' => 'SMAN 2 Banjarmasin',
         ];
     }
  
     protected function getFooterCopyright(): string
     {
-        return 'MoonShine';
+        return 'SIMPEG - Sistem Informasi Kepegawaian';
     }
 }

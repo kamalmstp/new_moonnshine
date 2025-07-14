@@ -4,16 +4,17 @@ declare(strict_types=1);
 namespace App\MoonShine\Pages;
 
 use App\Models\Cuti;
-use App\Models\Pegawai;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Layout\Grid;
 use MoonShine\UI\Components\Layout\Column;
 use MoonShine\UI\Components\Layout\Box;
+use MoonShine\UI\Components\Heading;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Support\Enums\FormMethod;
 use MoonShine\UI\Fields\{Text, Date, Select};
+use MoonShine\UI\Typography\Paragraph;
 
 class LaporanCutiPage extends Page
 {
@@ -47,21 +48,21 @@ class LaporanCutiPage extends Page
                         method: FormMethod::GET,
                         fields: [
                             Select::make('Status', 'status')->options([
-                                '' => 'Semua',
+                                '' => 'Semua Status',
                                 'diproses' => 'Diproses',
                                 'disetujui' => 'Disetujui',
                                 'ditolak' => 'Ditolak',
                             ]),
                             Select::make('Jenis Cuti', 'jenis_cuti')->options([
-                                '' => 'Semua',
+                                '' => 'Semua Jenis',
                                 'Tahunan' => 'Tahunan',
                                 'Sakit' => 'Sakit',
                                 'Melahirkan' => 'Melahirkan',
                                 'Ibadah' => 'Ibadah',
                                 'Lainnya' => 'Lainnya',
-                            ])
+                            ]),
                         ]
-                    )->submit('Filter'),
+                    )->submit('Terapkan Filter')->class('mb-4'),
                     Box::make([
                         TableBuilder::make()
                             ->items($cuti)
@@ -72,8 +73,8 @@ class LaporanCutiPage extends Page
                                 Date::make('Tanggal Selesai', 'tanggal_selesai'),
                                 Text::make('Status', 'status'),
                             ])
-                    ])
-                ])
+                    ])->class('shadow-xl rounded-xl p-4'),
+                ])->class('max-w-full'),
             ])
         ];
     }
