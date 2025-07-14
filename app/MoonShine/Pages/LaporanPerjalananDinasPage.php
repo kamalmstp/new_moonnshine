@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\Models\Pensiun;
+use App\Models\PerjalananDinas; // Pastikan model PerjalananDinas sudah ada
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Layout\Grid;
@@ -13,15 +13,15 @@ use MoonShine\UI\Components\Heading;
 use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Support\Enums\FormMethod;
-use MoonShine\UI\Fields\{Text, Select, Date, Boolean};
+use MoonShine\UI\Fields\{Text, Select, Date};
 use MoonShine\UI\Components\ActionButton; // Import ActionButton
 use App\Http\Controllers\ExportController; // Import ExportController
 
-class LaporanPensiunPage extends Page
+class LaporanPerjalananDinasPage extends Page
 {
     public function getTitle(): string
     {
-        return 'Laporan Pensiun Pegawai';
+        return 'Laporan Perjalanan Dinas';
     }
 
     public function getBreadcrumbs(): array
@@ -33,25 +33,25 @@ class LaporanPensiunPage extends Page
 
     protected function components(): iterable
     {
-        $filters = request()->only(['jenis_pensiun', 'status_pengajuan']);
+        $filters = request()->only(['jenis_perjalanan', 'status_perjalanan']);
 
-        $pensiun = Pensiun::query()
-            ->with('pegawai') // Pastikan relasi 'pegawai' ada di model Pensiun
-            ->when($filters['jenis_pensiun'] ?? null, fn ($q, $val) => $q->where('jenis_pensiun', $val))
-            ->when($filters['status_pengajuan'] ?? null, fn ($q, $val) => $q->where('status_pengajuan', $val))
+        $perjalananDinas = PerjalananDinas::query()
+            ->with('pegawai') // Pastikan relasi 'pegawai' ada di model PerjalananDinas
+            ->when($filters['jenis_perjalanan'] ?? null, fn ($q, $val) => $q->where('jenis_perjalanan', $val))
+            ->when($filters['status_perjalanan'] ?? null, fn ($q, $val) => $q->where('status_perjalanan', $val))
             ->latest()
             ->get();
 
         // Siapkan URL untuk export XLSX, sertakan parameter filter saat ini
-        $exportXlsxUrl = route('moonshine.laporan.pensiun.export.xlsx', [
-            'jenis_pensiun' => $filters['jenis_pensiun'] ?? null,
-            'status_pengajuan' => $filters['status_pengajuan'] ?? null,
+        $exportXlsxUrl = route('moonshine.laporan.perjalanan_dinas.export.xlsx', [
+            'jenis_perjalanan' => $filters['jenis_perjalanan'] ?? null,
+            'status_perjalanan' => $filters['status_perjalanan'] ?? null,
         ]);
 
         // Siapkan URL untuk export PDF, sertakan parameter filter saat ini
-        $exportPdfUrl = route('moonshine.laporan.pensiun.export.pdf', [
-            'jenis_pensiun' => $filters['jenis_pensiun'] ?? null,
-            'status_pengajuan' => $filters['status_pengajuan'] ?? null,
+        $exportPdfUrl = route('moonshine.laporan.perjalanan_dinas.export.pdf', [
+            'jenis_perjalanan' => $filters['jenis_perjalanan'] ?? null,
+            'status_perjalanan' => $filters['status_perjalanan'] ?? null,
         ]);
 
         return [
@@ -59,23 +59,25 @@ class LaporanPensiunPage extends Page
                 Column::make([
                     // Bagian Filter
                     Box::make([
-                        Heading::make('Filter Laporan Pensiun'), // Judul untuk filter
+                        Heading::make('Filter Laporan Perjalanan Dinas'), // Judul untuk filter
                         FormBuilder::make(
                             action: request()->url(),
                             method: FormMethod::GET,
                             fields: [
-                                Select::make('Jenis Pensiun', 'jenis_pensiun')->options([
-                                    '' => 'Semua Jenis', // Tambahkan opsi 'Semua Jenis'
-                                    'BUP' => 'BUP',
-                                    'Permintaan Sendiri' => 'Permintaan Sendiri',
-                                ])->setValue(request('jenis_pensiun')), // Menjaga nilai filter
-                                Select::make('Status Pengajuan', 'status_pengajuan')->options([
-                                    '' => 'Semua Status', // Tambahkan opsi 'Semua Status'
-                                    'Menunggu' => 'Menunggu',
-                                    'Diproses' => 'Diproses',
+                                Select::make('Jenis Perjalanan', 'jenis_perjalanan')->options([
+                                    '' => 'Semua Jenis',
+                                    'Dinas Luar Kota' => 'Dinas Luar Kota',
+                                    'Dinas Dalam Kota' => 'Dinas Dalam Kota',
+                                    'Pelatihan' => 'Pelatihan',
+                                    'Rapat' => 'Rapat',
+                                ])->setValue(request('jenis_perjalanan')), // Menjaga nilai filter
+                                Select::make('Status Perjalanan', 'status_perjalanan')->options([
+                                    '' => 'Semua Status',
+                                    'Diajukan' => 'Diajukan',
                                     'Disetujui' => 'Disetujui',
                                     'Ditolak' => 'Ditolak',
-                                ])->setValue(request('status_pengajuan')), // Menjaga nilai filter
+                                    'Selesai' => 'Selesai',
+                                ])->setValue(request('status_perjalanan')), // Menjaga nilai filter
                             ]
                         )->submit('Terapkan Filter')
                         ->buttons([
@@ -88,7 +90,7 @@ class LaporanPensiunPage extends Page
                                 ->icon('document')
                                 ->success()
                                 ->blank(),
-
+                            
                             ActionButton::make('Export Data (PDF)', $exportPdfUrl)
                                 ->icon('document')
                                 ->info()
@@ -96,19 +98,21 @@ class LaporanPensiunPage extends Page
                         ]),
                     ])->customAttributes(['class' => 'mb-4']), // Menambahkan margin bawah
 
-                    // Bagian Tabel Data Pensiun
+                    // Bagian Tabel Data Perjalanan Dinas
                     Box::make([
-                        Heading::make('Data Pensiun Pegawai'), // Judul untuk tabel
+                        Heading::make('Data Perjalanan Dinas'), // Judul untuk tabel
                         TableBuilder::make()
-                            ->items($pensiun)
+                            ->items($perjalananDinas)
                             ->fields([
                                 Text::make('Nama Pegawai', 'pegawai.nama_lengkap'),
-                                Text::make('Jenis Pensiun', 'jenis_pensiun'),
-                                Date::make('Tanggal Usulan', 'tanggal_usulan'),
-                                Text::make('Status Pengajuan', 'status_pengajuan'),
+                                Text::make('Jenis Perjalanan', 'jenis_perjalanan'),
+                                Date::make('Tgl. Berangkat', 'tanggal_berangkat'),
+                                Date::make('Tgl. Kembali', 'tanggal_kembali'),
+                                Text::make('Tujuan', 'tujuan'),
                                 Text::make('Keterangan', 'keterangan'),
-                                Text::make('Nomor Surat', 'nomor_surat'), // Tambahkan kolom nomor surat
-                                Date::make('Tanggal Surat', 'tanggal_surat'), // Tambahkan kolom tanggal surat
+                                Text::make('Status', 'status_perjalanan'),
+                                Text::make('No. Surat Tugas', 'nomor_surat_tugas'),
+                                Date::make('Tgl. Surat Tugas', 'tanggal_surat_tugas'),
                             ])
                             ->buttons([]) // Kosongkan array buttons
                     ])->class('shadow-xl rounded-xl p-4'),

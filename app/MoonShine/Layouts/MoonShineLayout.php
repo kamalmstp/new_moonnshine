@@ -48,7 +48,15 @@ use App\MoonShine\Resources\PerjalananDinasResource;
 use App\MoonShine\Resources\SuratMasukResource;
 use App\MoonShine\Resources\SuratKeluarResource;
 use App\MoonShine\Resources\ArsipDokumenResource;
-use App\MoonShine\Pages\{Dashboard, LaporanPegawaiPage, LaporanCutiPage, LaporanMutasiPage, LaporanPensiunPage};
+use App\MoonShine\Pages\{
+    Dashboard,
+    LaporanPegawaiPage,
+    LaporanCutiPage,
+    LaporanMutasiPage,
+    LaporanPensiunPage,
+    LaporanPerjalananDinasPage,
+    LaporanSuratMasukPage
+};
 
 final class MoonShineLayout extends AppLayout
 {
@@ -109,9 +117,13 @@ final class MoonShineLayout extends AppLayout
                     ->icon('document'),
                 MenuItem::make('Laporan Pensiun', LaporanPensiunPage::class)
                     ->icon('document'),
+
+                MenuItem::make('Laporan Perjalanan Dinas', LaporanPerjalananDinasPage::class)
+                    ->icon('document'),
+                MenuItem::make('Laporan Surat Masuk', LaporanSuratMasukPage::class)
+                    ->icon('document'),
             ])->icon('document-chart-bar'),
 
-            // Grup Referensi Data (Pindah ke Bawah)
             MenuGroup::make('Referensi Data', [
                 MenuItem::make('Pangkat & Golongan', PangkatGolonganResource::class)->icon('academic-cap'),
                 MenuItem::make('Mata Pelajaran', MataPelajaranResource::class)->icon('book-open'),

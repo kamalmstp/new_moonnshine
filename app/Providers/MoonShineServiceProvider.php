@@ -31,6 +31,8 @@ use App\MoonShine\Pages\LaporanPegawaiPage;
 use App\MoonShine\Pages\LaporanCutiPage;
 use App\MoonShine\Pages\LaporanMutasiPage;
 use App\MoonShine\Pages\LaporanPensiunPage;
+use App\MoonShine\Pages\LaporanPerjalananDinasPage;
+use App\MoonShine\Pages\LaporanSuratMasukPage;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -70,6 +72,8 @@ class MoonShineServiceProvider extends ServiceProvider
                 LaporanCutiPage::class,
                 LaporanMutasiPage::class,
                 LaporanPensiunPage::class,
+                LaporanPerjalananDinasPage::class,
+                LaporanSuratMasukPage::class,
             ])
         ;
     }
