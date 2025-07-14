@@ -33,6 +33,7 @@ use App\MoonShine\Pages\LaporanMutasiPage;
 use App\MoonShine\Pages\LaporanPensiunPage;
 use App\MoonShine\Pages\LaporanPerjalananDinasPage;
 use App\MoonShine\Pages\LaporanSuratMasukPage;
+use App\MoonShine\Pages\LaporanSuratKeluarPage;
 
 class MoonShineServiceProvider extends ServiceProvider
 {
@@ -74,6 +75,7 @@ class MoonShineServiceProvider extends ServiceProvider
                 LaporanPensiunPage::class,
                 LaporanPerjalananDinasPage::class,
                 LaporanSuratMasukPage::class,
+                LaporanSuratKeluarPage::class,
             ])
         ;
     }

@@ -5,6 +5,7 @@ use App\Models\Cuti;
 use App\Models\Mutasi;
 use App\Http\Controllers\LaporanPegawaiController;
 use App\Http\Controllers\SuratMasukViewController;
+use App\Http\Controllers\SuratKeluarViewController;
 use App\Http\Controllers\ExportController;
 
 Route::get('/moonshine/laporan-pegawai/export/xlsx', [ExportController::class, 'exportPegawaiXlsx'])
@@ -37,8 +38,15 @@ Route::get('/moonshine/laporan-surat-masuk/export/xlsx', [ExportController::clas
 Route::get('/moonshine/laporan-surat-masuk/export/pdf', [ExportController::class, 'exportSuratMasukPdf'])
     ->name('moonshine.laporan.surat_masuk.export.pdf');
 
+Route::get('/moonshine/laporan-surat-keluar/export/xlsx', [ExportController::class, 'exportSuratKeluarXlsx'])
+    ->name('moonshine.laporan.surat_keluar.export.xlsx');
+Route::get('/moonshine/laporan-surat-keluar/export/pdf', [ExportController::class, 'exportSuratKeluarPdf'])
+    ->name('moonshine.laporan.surat_keluar.export.pdf');
+
 Route::get('/surat-masuk/{id}', [SuratMasukViewController::class, 'show'])->name('surat_masuk.view');
 Route::get('/surat-masuk/{id}/download', [SuratMasukViewController::class, 'downloadFile'])->name('surat_masuk.download');
+Route::get('/surat-keluar/{id}', [SuratKeluarViewController::class, 'show'])->name('surat_keluar.view');
+Route::get('/surat-keluar/{id}/download', [SuratKeluarViewController::class, 'downloadFile'])->name('surat_keluar.download');
 
 
 Route::get('/arsip/{id}', function ($id) {

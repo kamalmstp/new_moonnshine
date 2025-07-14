@@ -55,7 +55,8 @@ use App\MoonShine\Pages\{
     LaporanMutasiPage,
     LaporanPensiunPage,
     LaporanPerjalananDinasPage,
-    LaporanSuratMasukPage
+    LaporanSuratMasukPage,
+    LaporanSuratKeluarPage
 };
 
 final class MoonShineLayout extends AppLayout
@@ -101,11 +102,10 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Perjalanan Dinas', PerjalananDinasResource::class)->icon('truck'),
             ])->icon('document-arrow-up'),
 
-            // Grup Surat dan Arsip
+            // Grup Surat
             MenuGroup::make('Persuratan & Arsip', [
                 MenuItem::make('Surat Masuk', SuratMasukResource::class)->icon('inbox'),
                 MenuItem::make('Surat Keluar', SuratKeluarResource::class)->icon('paper-airplane'),
-                MenuItem::make('Arsip Dokumen', ArsipDokumenResource::class)->icon('archive-box'),
             ])->icon('inbox'),
 
             MenuGroup::make('Laporan',[
@@ -121,6 +121,8 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Laporan Perjalanan Dinas', LaporanPerjalananDinasPage::class)
                     ->icon('document'),
                 MenuItem::make('Laporan Surat Masuk', LaporanSuratMasukPage::class)
+                    ->icon('document'),
+                MenuItem::make('Laporan Surat Keluar', LaporanSuratKeluarPage::class)
                     ->icon('document'),
             ])->icon('document-chart-bar'),
 

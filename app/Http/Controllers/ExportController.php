@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Pegawai, Cuti, Mutasi,Pensiun,PerjalananDinas,SuratMasuk};
+use App\Models\{Pegawai, Cuti, Mutasi,Pensiun,PerjalananDinas,SuratMasuk, SuratKeluar};
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\{PegawaiExport, CutiExport, MutasiExport, PensiunExport, PerjalananDinasExport, SuratMasukExport};
+use App\Exports\{PegawaiExport, CutiExport, MutasiExport, PensiunExport, PerjalananDinasExport, SuratMasukExport, SuratKeluarExport};
 use Dompdf\Dompdf;
 use Dompdf\Options;
 
@@ -388,6 +388,64 @@ class ExportController extends Controller
         $dompdf->render();
 
         // Kirim PDF sebagai respons download
+        return response()->streamDownload(function () use ($dompdf) {
+            echo $dompdf->output();
+        }, $fileName, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
+
+    public function exportSuratKeluarXlsx(Request $request)
+    {
+        $tujuan = $request->query('tujuan');
+
+        $suratKeluarQuery = SuratKeluar::query()
+            ->when($tujuan, fn ($q, $val) => $q->where('tujuan', 'like', '%' . $val . '%'))
+            ->latest();
+
+        $fileName = 'laporan_surat_keluar_' . now()->format('Ymd_His') . '.xlsx';
+
+        return Excel::download(new SuratKeluarExport($suratKeluarQuery), $fileName);
+    }
+
+    public function exportSuratKeluarPdf(Request $request)
+    {
+        
+        $tujuan = $request->query('tujuan');
+
+        
+        $suratKeluarQuery = SuratKeluar::query()
+            ->when($tujuan, fn ($q, $val) => $q->where('tujuan', 'like', '%' . $val . '%'))
+            ->latest();
+
+        
+        $suratKeluar = $suratKeluarQuery->get();
+
+        
+        $fileName = 'laporan_surat_keluar_' . now()->format('Ymd_His') . '.pdf';
+
+        
+        $html = view('exports.surat_keluar_pdf', [
+            'suratKeluar' => $suratKeluar
+        ])->render();
+
+        
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+
+        
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+
+        
+        $dompdf->setPaper('A4', 'landscape'); 
+
+        
+        $dompdf->render();
+
+        
         return response()->streamDownload(function () use ($dompdf) {
             echo $dompdf->output();
         }, $fileName, [
