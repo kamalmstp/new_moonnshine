@@ -9,7 +9,7 @@ use App\Models\Pegawai;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\UI\Components\Layout\Box;
-use MoonShine\UI\Fields\{ID, Text};
+use MoonShine\UI\Fields\{ID, Text, File};
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
 
@@ -28,9 +28,9 @@ class KeahlianPegawaiResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Nama Keahlian', 'nama_keahlian'),
+            Text::make('Nomor Sertifikat', 'no_sertifikat'),
         ];
     }
 
@@ -43,6 +43,8 @@ class KeahlianPegawaiResource extends ModelResource
             Box::make([
                 BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
                 Text::make('Nama Keahlian', 'nama_keahlian')->required(),
+                Text::make('Nomor Sertifikat', 'no_sertifikat'),
+                File::make('Sertifikat', 'sertifikat')->dir('sertifikat_keahlian')->disk('public')->nullable(),
                 Text::make('Keterangan', 'keterangan')->nullable(),
             ])
         ];
@@ -53,7 +55,13 @@ class KeahlianPegawaiResource extends ModelResource
      */
     protected function detailFields(): iterable
     {
-        return $this->indexFields();
+        return [
+                BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
+                Text::make('Nama Keahlian', 'nama_keahlian')->required(),
+                Text::make('Nomor Sertifikat', 'no_sertifikat'),
+                File::make('Sertifikat', 'sertifikat')->dir('sertifikat_keahlian')->disk('public')->nullable(),
+                Text::make('Keterangan', 'keterangan')->nullable(),
+        ];
     }
 
     /**

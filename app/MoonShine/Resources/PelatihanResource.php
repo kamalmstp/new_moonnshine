@@ -9,7 +9,7 @@ use App\Models\Pegawai;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
-use MoonShine\UI\Fields\{ID, Text, File};
+use MoonShine\UI\Fields\{ID, Text, Date, File};
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
 
@@ -28,10 +28,11 @@ class PelatihanResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
-            Text::make('Nama Pelatihan', 'nama_pelatihan'),
-            Text::make('Tahun', 'tahun')->sortable(),
+            Text::make('Tema', 'tema'),
+            Text::make('Penyelenggara', 'penyelenggara'),
+            Date::make('Tanggal Mulai', 'tanggal_mulai')->sortable(),
+            Date::make('Tanggal Selesai', 'tanggal_selesai')->sortable(),
         ];
     }
 
@@ -43,9 +44,12 @@ class PelatihanResource extends ModelResource
         return [
             Box::make([
                 BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
-                Text::make('Nama Pelatihan', 'nama_pelatihan')->required(),
+                Text::make('Tema', 'tema')->required(),
                 Text::make('Penyelenggara', 'penyelenggara')->nullable(),
-                Text::make('Tahun', 'tahun')->nullable(),
+                Text::make('Tempat Pelatihan', 'tempat_pelatihan')->nullable(),
+                Date::make('Tanggal Mulai', 'tanggal_mulai')->nullable(),
+                Date::make('Tanggal Selesai', 'tanggal_selesai')->nullable(),
+                File::make('Surat Tugas', 'surat_tugas')->dir('surat-tugas')->disk('public')->nullable(),
                 File::make('Sertifikat', 'sertifikat')->dir('sertifikat')->disk('public')->nullable(),
             ])
         ];
@@ -56,7 +60,16 @@ class PelatihanResource extends ModelResource
      */
     protected function detailFields(): iterable
     {
-        return $this->indexFields();
+        return [
+                BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
+                Text::make('Tema', 'tema')->required(),
+                Text::make('Penyelenggara', 'penyelenggara')->nullable(),
+                Text::make('Tempat Pelatihan', 'tempat_pelatihan')->nullable(),
+                Date::make('Tanggal Mulai', 'tanggal_mulai')->nullable(),
+                Date::make('Tanggal Selesai', 'tanggal_selesai')->nullable(),
+                File::make('Surat Tugas', 'surat_tugas')->dir('surat-tugas')->disk('public')->nullable(),
+                File::make('Sertifikat', 'sertifikat')->dir('sertifikat')->disk('public')->nullable(),
+        ];
     }
 
     /**
@@ -68,9 +81,8 @@ class PelatihanResource extends ModelResource
     {
         return [
             'pegawai_id' => ['required', 'exists:pegawai,id'],
-            'nama_pelatihan' => ['required', 'string'],
+            'tema' => ['required', 'string'],
             'penyelenggara' => ['nullable', 'string'],
-            'tahun' => ['nullable', 'string'],
             'sertifikat' => ['nullable', 'file'],
         ];
     }

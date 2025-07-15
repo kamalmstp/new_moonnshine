@@ -11,8 +11,9 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::table('surat_keluar', function (Blueprint $table) {
-            $table->string('file_surat')->nullable()->after('lampiran');
+        Schema::table('keahlian_pegawai', function (Blueprint $table) {
+            $table->string('no_sertifikat')->nullable()->after('nama_keahlian');
+            $table->string('sertifikat')->nullable()->after('no_sertifikat');
         });
     }
 
@@ -21,8 +22,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::table('surat_keluar', function (Blueprint $table) {
-            $table->dropColumn(['file_surat']);
+        Schema::table('keahlian_pegawai', function (Blueprint $table) {
+            $table->dropColumn(['no_sertifikat','sertifikat']);
         });
     }
 };

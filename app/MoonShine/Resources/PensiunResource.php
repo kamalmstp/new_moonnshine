@@ -28,7 +28,7 @@ class PensiunResource extends ModelResource
     protected function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
+            
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Jenis Pensiun', 'jenis_pensiun'),
             Date::make('Tanggal Usulan', 'tanggal_usulan'),
@@ -63,7 +63,7 @@ class PensiunResource extends ModelResource
                     ])
                     ->required(),
                 Text::make('Nomor Surat', 'nomor_surat')->nullable(),
-                File::make('SK Pensiun', 'sk_pensiun')->nullable(),
+                File::make('Surat Keterangan', 'sk_pensiun')->dir('sk_pensiun')->disk('public')->nullable(),
                 Textarea::make('Keterangan', 'keterangan')->nullable(),
             ])
         ];
@@ -74,7 +74,28 @@ class PensiunResource extends ModelResource
      */
     protected function detailFields(): iterable
     {
-        return $this->indexFields(); // Atau sesuaikan bila ingin detail berbeda
+        return [
+            BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap')
+                    ->required(),
+                Select::make('Jenis Pensiun', 'jenis_pensiun')
+                    ->options([
+                        'BUP' => 'Batas Usia Pensiun',
+                        'Permintaan Sendiri' => 'Permintaan Sendiri',
+                    ])
+                    ->required(),
+                Date::make('Tanggal Usulan', 'tanggal_usulan')->required(),
+                Date::make('Tanggal Pensiun', 'tanggal_pensiun')->nullable(),
+                Select::make('Status Pengajuan', 'status_pengajuan')
+                    ->options([
+                        'diproses' => 'Diproses',
+                        'disetujui' => 'Disetujui',
+                        'ditolak' => 'Ditolak',
+                    ])
+                    ->required(),
+                Text::make('Nomor Surat', 'nomor_surat')->nullable(),
+                File::make('Surat Keterangan', 'sk_pensiun')->dir('sk_pensiun')->disk('public')->nullable(),
+                Textarea::make('Keterangan', 'keterangan')->nullable(),
+        ];
     }
 
     /**

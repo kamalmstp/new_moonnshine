@@ -12,7 +12,7 @@ use MoonShine\Support\ListOf;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
-use MoonShine\UI\Fields\{ID, Text, Date, Textarea, Select};
+use MoonShine\UI\Fields\{ID, Text, Date, File, Textarea, Select};
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
 
@@ -25,7 +25,6 @@ class CutiResource extends ModelResource
     public function indexFields(): iterable
     {
         return [
-            ID::make()->sortable(),
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Jenis Cuti', 'jenis_cuti'),
             Date::make('Tanggal Mulai', 'tanggal_mulai'),
@@ -49,6 +48,7 @@ class CutiResource extends ModelResource
                 Date::make('Tanggal Selesai', 'tanggal_selesai')->required(),
                 Text::make('Nomor Surat', 'nomor_surat'),
                 Textarea::make('Alasan', 'alasan')->nullable(),
+                File::make('File Pendukung', 'file')->dir('cuti')->disk('public')->nullable(),
                 Select::make('Status', 'status')->options([
                     'diproses' => 'Diproses',
                     'disetujui' => 'Disetujui',
@@ -68,7 +68,9 @@ class CutiResource extends ModelResource
             Date::make('Tanggal Selesai', 'tanggal_selesai'),
             Text::make('Nomor Surat', 'nomor_surat'),
             Textarea::make('Alasan', 'alasan'),
+            File::make('File Pendukung', 'file')->dir('cuti')->disk('public')->nullable(),
             Text::make('Status', 'status'),
+            Text::make('Keterangan', 'keterangan'),
         ];
     }
 

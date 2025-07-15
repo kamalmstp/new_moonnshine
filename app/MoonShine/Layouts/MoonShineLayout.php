@@ -48,6 +48,7 @@ use App\MoonShine\Resources\PerjalananDinasResource;
 use App\MoonShine\Resources\SuratMasukResource;
 use App\MoonShine\Resources\SuratKeluarResource;
 use App\MoonShine\Resources\ArsipDokumenResource;
+use App\MoonShine\Resources\{MoonShineUserResource,MoonShineUserRoleResource};
 use App\MoonShine\Pages\{
     Dashboard,
     LaporanPegawaiPage,
@@ -91,7 +92,7 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Riwayat Pangkat', RiwayatPangkatResource::class)->icon('arrow-trending-up'),
                 MenuItem::make('Pelatihan', PelatihanResource::class)->icon('presentation-chart-line'),
                 MenuItem::make('Keahlian Pegawai', KeahlianPegawaiResource::class)->icon('light-bulb'),
-                MenuItem::make('Kompetensi Guru', KompetensiGuruResource::class)->icon('clipboard-document-check'),
+                //MenuItem::make('Kompetensi Guru', KompetensiGuruResource::class)->icon('clipboard-document-check'),
             ])->icon('user-group'),
 
             // Grup Permohonan
@@ -131,7 +132,14 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Mata Pelajaran', MataPelajaranResource::class)->icon('book-open'),
             ])->icon('folder'),
 
-            ...parent::menu(),
+            MenuGroup::make('System', [
+                MenuItem::make('User', MoonShineUserResource::class)
+                    ->icon('users'),
+                MenuItem::make('Roles', MoonShineUserRoleResource::class)
+                    ->icon('shield-check'),
+            ])->icon('cog-6-tooth'),
+
+            //...parent::menu(),
         ];
     }
 
