@@ -14,6 +14,8 @@ use MoonShine\UI\Fields\File;
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Support\ListOf;
+use MoonShine\UI\Components\ActionButton;
 
 class PerjalananDinasResource extends ModelResource
 {
@@ -51,6 +53,16 @@ class PerjalananDinasResource extends ModelResource
     protected function detailFields(): iterable
     {
         return $this->formFields();
+    }
+
+    protected function indexButtons(): ListOf
+    {
+        return parent::indexButtons()
+            ->add(
+                ActionButton::make('Generate Surat', fn($item) => route('perjalanan_dinas.surat', $item))
+                    ->icon('document')
+                    ->blank()
+            );
     }
 
     protected function rules(mixed $item): array

@@ -54,6 +54,7 @@ class CutiResource extends ModelResource
                     'disetujui' => 'Disetujui',
                     'ditolak' => 'Ditolak',
                 ])->default('diproses'),
+                Textarea::make('Keterangan', 'keterangan')->nullable(),
             ])
         ];
     }
@@ -81,7 +82,7 @@ class CutiResource extends ModelResource
                 ActionButton::make('Generate Surat', fn($item) => route('cuti.surat', $item))
                     ->icon('document')
                     ->blank()
-                    ->canSee(fn($item) => !is_null($item->nomor_surat)) // sembunyikan jika belum ada
+                    ->canSee(fn($item) => !is_null($item->nomor_surat))
             );
     }
 

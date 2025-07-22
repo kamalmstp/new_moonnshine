@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Izin Cuti</title>
+    <title>Surat Perintah Perjalanan Dinas</title>
     <style>
         /* Menggunakan font yang lebih aman untuk Dompdf dan mendukung karakter Latin Extended */
         @font-face {
@@ -181,52 +181,72 @@
         </div>
 
         <div class="content">
-            <p style="text-align: right;">Banjarmasin, {{ \Carbon\Carbon::parse($cuti->tanggal_pengajuan)->translatedFormat('d F Y') }}</p>
-            <p>Nomor : {{ $cuti->nomor_surat ?? '-' }}</p>
+            <p style="text-align: right;">Banjarmasin, {{ \Carbon\Carbon::parse($perjalananDinas->tanggal_berangkat)->translatedFormat('d F Y') }}</p>
+            <p>Nomor : [NOMOR SURAT TUGAS]</p>
             <p>Lampiran : -</p>
-            <p>Hal : Permohonan Izin Cuti {{ $cuti->jenis_cuti ?? 'Tidak Diketahui' }}</p>
+            <p>Hal : Surat Perintah Perjalanan Dinas</p>
 
             <br>
 
             <p>Kepada Yth.</p>
-            <p>Kepala Sekolah SMKN 2 Banjarmasin</p>
+            <p>Pegawai yang bersangkutan</p>
             <p>di -</p>
             <p style="text-indent: 1cm;">Tempat</p>
 
             <br>
 
-            <p class="indent">Dengan hormat,</p>
             <p class="indent">Yang bertanda tangan di bawah ini:</p>
+            <table>
+                <tr>
+                    <td>Nama</td>
+                    <td>: H. MUKENIANSYAH, S.Pd., M.I.Kom.</td>
+                </tr>
+                <tr>
+                    <td>NIP</td>
+                    <td>: 196507071997021002</td>
+                </tr>
+                <tr>
+                    <td>Jabatan</td>
+                    <td>: Plt. Kepala Sekolah</td>
+                </tr>
+            </table>
+
+            <p class="indent">Dengan ini memerintahkan kepada:</p>
 
             <table>
                 <tr>
                     <td>Nama</td>
-                    <td>: {{ $cuti->pegawai->nama_lengkap ?? '-' }}</td>
+                    <td>: {{ $perjalananDinas->pegawai->nama_lengkap ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>NIP</td>
-                    <td>: {{ $cuti->pegawai->nip ?? '-' }}</td>
+                    <td>: {{ $perjalananDinas->pegawai->nip ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
-                    <td>: {{ $cuti->pegawai->jabatan ?? '-' }}</td>
+                    <td>: {{ $perjalananDinas->pegawai->jabatan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Pangkat/Golongan</td>
-                    <td>: {{ $cuti->pegawai->pangkatGolongan->pangkat_golongan ?? '-' }}</td>
+                    <td>: {{ $perjalananDinas->pegawai->pangkatGolongan->pangkat_golongan ?? '-' }}</td>
                 </tr>
             </table>
 
-            <p class="indent">Dengan ini mengajukan permohonan izin cuti {{ $cuti->jenis_cuti ?? 'Tidak Diketahui' }} selama {{ $cuti->lama_cuti_hari ?? '-' }} hari kerja, terhitung mulai tanggal **{{ \Carbon\Carbon::parse($cuti->tanggal_mulai)->translatedFormat('d F Y') }}** sampai dengan tanggal **{{ \Carbon\Carbon::parse($cuti->tanggal_selesai)->translatedFormat('d F Y') }}**.</p>
-            <p class="indent">Adapun alasan saya mengajukan cuti adalah: **{{ $cuti->alasan ?? '-' }}**.</p>
-            <p class="indent">Demikian permohonan ini saya sampaikan, atas perhatian dan persetujuan Bapak/Ibu, saya mengucapkan terima kasih.</p>
+            <p class="indent">Untuk melaksanakan perjalanan dinas {{ $perjalananDinas->jenis_perjalanan ?? '-' }} dengan tujuan **{{ $perjalananDinas->tujuan ?? '-' }}**.</p>
+            <p class="indent">Perjalanan dinas ini dilaksanakan terhitung mulai tanggal **{{ \Carbon\Carbon::parse($perjalananDinas->tanggal_berangkat)->translatedFormat('d F Y') }}** sampai dengan tanggal **{{ \Carbon\Carbon::parse($perjalananDinas->tanggal_kembali)->translatedFormat('d F Y') }}**.</p>
+            <p class="indent">Keterangan tambahan: {{ $perjalananDinas->keterangan ?? '-' }}.</p>
+            <p class="indent">Demikian surat perintah perjalanan dinas ini dibuat untuk dilaksanakan dengan penuh tanggung jawab.</p>
         </div>
 
         <div class="signature-block">
-            <p>Hormat saya,</p>
-            <p class="date"></p>
-            <p class="name">{{ $cuti->pegawai->nama_lengkap ?? '-' }}</p>
-            <p>NIP. {{ $cuti->pegawai->nip ?? '-' }}</p>
+            <p>Dikeluarkan di : Banjarmasin</p>
+            <p>Pada tanggal : {{ \Carbon\Carbon::parse($perjalananDinas->tanggal_berangkat)->translatedFormat('d F Y') }}</p>
+            <br>
+            <p>Plt. Kepala Sekolah,</p>
+            <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+            <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
+            <p class="title">Pembina Tk. I</p>
+            <p class="nip">NIP 196507071997021002</p>
         </div>
 
     </div>

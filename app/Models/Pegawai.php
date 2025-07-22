@@ -10,7 +10,10 @@ class Pegawai extends Model
 
     protected $guarded = [];
 
-    public function user() { return $this->belongsTo(User::class); }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
     public function pangkatGolongan() { return $this->belongsTo(PangkatGolongan::class); }
     public function mataPelajaran() { return $this->belongsTo(MataPelajaran::class); }
 

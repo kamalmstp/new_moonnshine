@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Surat Izin Cuti</title>
+    <title>Surat Pemberitahuan Pensiun</title>
     <style>
         /* Menggunakan font yang lebih aman untuk Dompdf dan mendukung karakter Latin Extended */
         @font-face {
@@ -181,52 +181,55 @@
         </div>
 
         <div class="content">
-            <p style="text-align: right;">Banjarmasin, {{ \Carbon\Carbon::parse($cuti->tanggal_pengajuan)->translatedFormat('d F Y') }}</p>
-            <p>Nomor : {{ $cuti->nomor_surat ?? '-' }}</p>
+            <p style="text-align: right;">Banjarmasin, {{ \Carbon\Carbon::parse($pensiun->tanggal_surat ?? $pensiun->tanggal_usulan)->translatedFormat('d F Y') }}</p>
+            <p>Nomor : {{ $pensiun->nomor_surat ?? '-' }}</p>
             <p>Lampiran : -</p>
-            <p>Hal : Permohonan Izin Cuti {{ $cuti->jenis_cuti ?? 'Tidak Diketahui' }}</p>
+            <p>Hal : Pemberitahuan Pensiun Pegawai</p>
 
             <br>
 
             <p>Kepada Yth.</p>
-            <p>Kepala Sekolah SMKN 2 Banjarmasin</p>
+            <p>Kepala Dinas Pendidikan dan Kebudayaan Provinsi Kalimantan Selatan</p>
             <p>di -</p>
             <p style="text-indent: 1cm;">Tempat</p>
 
             <br>
 
             <p class="indent">Dengan hormat,</p>
-            <p class="indent">Yang bertanda tangan di bawah ini:</p>
+            <p class="indent">Berdasarkan surat usulan pensiun yang diajukan oleh:</p>
 
             <table>
                 <tr>
                     <td>Nama</td>
-                    <td>: {{ $cuti->pegawai->nama_lengkap ?? '-' }}</td>
+                    <td>: {{ $pensiun->pegawai->nama_lengkap ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>NIP</td>
-                    <td>: {{ $cuti->pegawai->nip ?? '-' }}</td>
+                    <td>: {{ $pensiun->pegawai->nip ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Jabatan</td>
-                    <td>: {{ $cuti->pegawai->jabatan ?? '-' }}</td>
+                    <td>: {{ $pensiun->pegawai->jabatan ?? '-' }}</td>
                 </tr>
                 <tr>
                     <td>Pangkat/Golongan</td>
-                    <td>: {{ $cuti->pegawai->pangkatGolongan->pangkat_golongan ?? '-' }}</td>
+                    <td>: {{ $pensiun->pegawai->pangkatGolongan->pangkat_golongan ?? '-' }}</td>
                 </tr>
             </table>
 
-            <p class="indent">Dengan ini mengajukan permohonan izin cuti {{ $cuti->jenis_cuti ?? 'Tidak Diketahui' }} selama {{ $cuti->lama_cuti_hari ?? '-' }} hari kerja, terhitung mulai tanggal **{{ \Carbon\Carbon::parse($cuti->tanggal_mulai)->translatedFormat('d F Y') }}** sampai dengan tanggal **{{ \Carbon\Carbon::parse($cuti->tanggal_selesai)->translatedFormat('d F Y') }}**.</p>
-            <p class="indent">Adapun alasan saya mengajukan cuti adalah: **{{ $cuti->alasan ?? '-' }}**.</p>
-            <p class="indent">Demikian permohonan ini saya sampaikan, atas perhatian dan persetujuan Bapak/Ibu, saya mengucapkan terima kasih.</p>
+            <p class="indent">Dengan ini kami memberitahukan bahwa permohonan pensiun dengan jenis **{{ $pensiun->jenis_pensiun ?? '-' }}** telah **{{ $pensiun->status_pengajuan ?? '-' }}** terhitung mulai tanggal **{{ \Carbon\Carbon::parse($pensiun->tanggal_usulan)->translatedFormat('d F Y') }}**.</p>
+            <p class="indent">Keterangan tambahan: {{ $pensiun->keterangan ?? '-' }}.</p>
+            <p class="indent">Demikian surat pemberitahuan pensiun ini kami sampaikan untuk menjadi maklum dan dapat ditindaklanjuti sebagaimana mestinya. Atas perhatian Bapak/Ibu, kami mengucapkan terima kasih.</p>
         </div>
 
         <div class="signature-block">
-            <p>Hormat saya,</p>
+            <p>Hormat kami,</p>
             <p class="date"></p>
-            <p class="name">{{ $cuti->pegawai->nama_lengkap ?? '-' }}</p>
-            <p>NIP. {{ $cuti->pegawai->nip ?? '-' }}</p>
+            <p>Plt. Kepala Sekolah,</p>
+            <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+            <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
+            <p class="title">Pembina Tk. I</p>
+            <p class="nip">NIP 196507071997021002</p>
         </div>
 
     </div>

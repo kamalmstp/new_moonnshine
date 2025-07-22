@@ -1,8 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Models\Cuti;
-use App\Models\Mutasi;
+use App\Models\{Cuti, Mutasi, Pensiun, PerjalananDinas};
 use App\Http\Controllers\LaporanPegawaiController;
 use App\Http\Controllers\SuratMasukViewController;
 use App\Http\Controllers\SuratKeluarViewController;
@@ -61,6 +60,14 @@ Route::get('/cuti/{cuti}/surat', function (Cuti $cuti) {
 Route::get('/mutasi/{mutasi}/surat', function (Mutasi $mutasi) {
     return view('surat.mutasi', compact('mutasi'));
 })->name('mutasi.surat');
+
+Route::get('/pensiun/{pensiun}/surat', function (Pensiun $pensiun) {
+    return view('surat.pensiun', compact('pensiun'));
+})->name('pensiun.surat');
+
+Route::get('/perjalanan-dinas/{id}/surat', function (PerjalananDinas $perjalananDinas) {
+    return view('surat.perjalanan_dinas', compact('perjalananDinas'));
+})->name('perjalanan_dinas.surat');
 
 Route::get('/', function () {
     return view('welcome');

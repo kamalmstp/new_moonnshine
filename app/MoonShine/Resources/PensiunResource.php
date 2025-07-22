@@ -12,6 +12,8 @@ use MoonShine\UI\Fields\{ID, Date, Select, Text, Textarea, File};
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Support\ListOf;
+use MoonShine\UI\Components\ActionButton;
 
 /**
  * @extends ModelResource<Pensiun>
@@ -96,6 +98,17 @@ class PensiunResource extends ModelResource
                 File::make('Surat Keterangan', 'sk_pensiun')->dir('sk_pensiun')->disk('public')->nullable(),
                 Textarea::make('Keterangan', 'keterangan')->nullable(),
         ];
+    }
+
+    protected function indexButtons(): ListOf
+    {
+        return parent::indexButtons()
+            ->add(
+                ActionButton::make('Generate Surat', fn($item) => route('pensiun.surat', $item))
+                    ->icon('document')
+                    ->blank()
+                    ->canSee(fn($item) => !is_null($item->nomor_surat))
+            );
     }
 
     /**
