@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Models\{Cuti, Mutasi, Pensiun, PerjalananDinas};
+use App\MoonShine\Resources\PegawaiResource;
 use App\Http\Controllers\LaporanPegawaiController;
 use App\Http\Controllers\SuratMasukViewController;
 use App\Http\Controllers\SuratKeluarViewController;
@@ -52,6 +53,8 @@ Route::get('/surat-masuk/{id}/download', [SuratMasukViewController::class, 'down
 Route::get('/surat-keluar/{id}', [SuratKeluarViewController::class, 'show'])->name('surat_keluar.view');
 Route::get('/surat-keluar/{id}/download', [SuratKeluarViewController::class, 'downloadFile'])->name('surat_keluar.download');
 
+Route::post('resources/pegawai/store-user/{pegawai_id}', [PegawaiResource::class, 'store_user_from_pegawai'])
+    ->name('moonshine.pegawai.store_user');
 
 Route::get('/arsip/{id}', function ($id) {
     $arsip = \App\Models\ArsipDokumen::findOrFail($id);

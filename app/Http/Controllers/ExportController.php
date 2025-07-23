@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\{Pegawai, Cuti, Mutasi,Pensiun,PerjalananDinas,SuratMasuk, SuratKeluar};
+use App\Models\{Pegawai, Cuti, Mutasi,Pensiun,PerjalananDinas,SuratMasuk, SuratKeluar, Pelatihan};
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
 use App\Exports\{PegawaiExport, CutiExport, MutasiExport, PensiunExport, PerjalananDinasExport, SuratMasukExport, SuratKeluarExport};

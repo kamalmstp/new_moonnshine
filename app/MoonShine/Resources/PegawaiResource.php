@@ -21,10 +21,10 @@ use MoonShine\Actions\MassDeleteAction;
 use MoonShine\Fields\Filters\TextFilter;
 use MoonShine\Fields\Filters\SelectFilter;
 use MoonShine\Enums\PageType;
-use MoonShine\UI\Components\ActionButton;
+use MoonShine\Enums\FormMethod;
+use MoonShine\UI\Components\{ActionButton, Modal, FormBuilder, HttpMethod};
 use MoonShine\Contracts\UI\ActionButtonContract;
 use MoonShine\Models\MoonshineUser;
-use MoonShine\UI\Components\Modal;
 use MoonShine\Support\ListOf;
 use App\MoonShine\Resources\MoonShineUserResource;
 
@@ -280,17 +280,6 @@ class PegawaiResource extends ModelResource
         ];
     }
 
-    protected function indexButtons(): ListOf
-    {
-        return parent::indexButtons()
-            ->add(
-                ActionButton::make('Button Label')
-                    ->inModal(
-                        name: static fn (mixed $item, ActionButtonContract $ctx): string => "delete-button-{$ctx->getData()?->getKey()}"
-                    )
-            );
-    }
-
     protected function rules(mixed $item): array
     {
         return [
@@ -328,5 +317,20 @@ class PegawaiResource extends ModelResource
     public function getPageType(): PageType
     {
         return PageType::INDEX;
+    }
+
+    public function canCreate(): bool
+    {
+        return auth('moonshine')->user()->moonshineUserRole->name !== 'Guru';
+    }
+
+    public function canUpdate(Model $item): bool
+    {
+        return auth('moonshine')->user()->moonshineUserRole->name !== 'Guru';
+    }
+
+    public function canDelete(Model $item): bool
+    {
+        return auth('moonshine')->user()->moonshineUserRole->name !== 'Guru';
     }
 }
