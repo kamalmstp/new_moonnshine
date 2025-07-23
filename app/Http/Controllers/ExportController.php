@@ -500,7 +500,7 @@ class ExportController extends Controller
         $dompdf->loadHtml($html);
 
         // Set ukuran kertas dan orientasi
-        $dompdf->setPaper('A4', 'portrait'); // Menggunakan portrait, sesuaikan jika perlu
+        $dompdf->setPaper('A4', 'landscape'); // Menggunakan portrait, sesuaikan jika perlu
 
         // Render PDF
         $dompdf->render();
