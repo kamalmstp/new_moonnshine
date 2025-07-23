@@ -453,4 +453,64 @@ class ExportController extends Controller
             'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
         ]);
     }
+
+    public function exportPelatihanXlsx(Request $request)
+    {
+        $jenisPelatihan = $request->query('jenis_pelatihan');
+        $statusPelaksanaan = $request->query('status_pelaksanaan');
+
+        $pelatihanQuery = Pelatihan::query()
+            ->with('pegawai')
+            ->when($jenisPelatihan, fn ($q, $val) => $q->where('jenis_pelatihan', $val))
+            ->when($statusPelaksanaan, fn ($q, $val) => $q->where('status_pelaksanaan', $val))
+            ->latest();
+
+        $fileName = 'laporan_pelatihan_' . now()->format('Ymd_His') . '.xlsx';
+        return Excel::download(new PelatihanExport($pelatihanQuery), $fileName);
+    }
+
+    // Metode BARU untuk export Pelatihan (PDF) - Disesuaikan dengan format Anda
+    public function exportPelatihanPdf(Request $request)
+    {
+        $jenisPelatihan = $request->query('jenis_pelatihan');
+        $statusPelaksanaan = $request->query('status_pelaksanaan');
+
+        $pelatihanQuery = Pelatihan::query()
+            ->with('pegawai')
+            ->when($jenisPelatihan, fn ($q, $val) => $q->where('jenis_pelatihan', $val))
+            ->when($statusPelaksanaan, fn ($q, $val) => $q->where('status_pelaksanaan', $val))
+            ->latest();
+
+        $pelatihan = $pelatihanQuery->get();
+        $fileName = 'laporan_pelatihan_' . now()->format('Ymd_His') . '.pdf';
+        
+        // Render view ke HTML
+        $html = view('exports.pelatihan_pdf', [
+            'pelatihan' => $pelatihan
+        ])->render();
+
+        // Konfigurasi Dompdf
+        $options = new Options();
+        $options->set('isHtml5ParserEnabled', true);
+        $options->set('isRemoteEnabled', true);
+        $options->set('chroot', public_path()); // Penting untuk akses gambar lokal
+
+        // Inisialisasi Dompdf
+        $dompdf = new Dompdf($options);
+        $dompdf->loadHtml($html);
+
+        // Set ukuran kertas dan orientasi
+        $dompdf->setPaper('A4', 'portrait'); // Menggunakan portrait, sesuaikan jika perlu
+
+        // Render PDF
+        $dompdf->render();
+
+        // Stream file untuk download
+        return response()->streamDownload(function () use ($dompdf) {
+            echo $dompdf->output();
+        }, $fileName, [
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="' . $fileName . '"',
+        ]);
+    }
 }

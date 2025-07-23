@@ -75,7 +75,7 @@ class MoonShineUserRoleResource extends ModelResource
     protected function rules($item): array
     {
         return [
-            'name' => ['required', 'min:5'],
+            'name' => ['required', 'min:4'],
         ];
     }
 

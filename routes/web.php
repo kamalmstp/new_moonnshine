@@ -42,6 +42,11 @@ Route::get('/moonshine/laporan-surat-keluar/export/xlsx', [ExportController::cla
 Route::get('/moonshine/laporan-surat-keluar/export/pdf', [ExportController::class, 'exportSuratKeluarPdf'])
     ->name('moonshine.laporan.surat_keluar.export.pdf');
 
+Route::get('/moonshine/laporan-pelatihan/export/xlsx', [ExportController::class, 'exportPelatihanXlsx'])
+    ->name('moonshine.laporan.pelatihan.export.xlsx');
+Route::get('/moonshine/laporan-pelatihan/export/pdf', [ExportController::class, 'exportPelatihanPdf'])
+    ->name('moonshine.laporan.pelatihan.export.pdf');
+
 Route::get('/surat-masuk/{id}', [SuratMasukViewController::class, 'show'])->name('surat_masuk.view');
 Route::get('/surat-masuk/{id}/download', [SuratMasukViewController::class, 'downloadFile'])->name('surat_masuk.download');
 Route::get('/surat-keluar/{id}', [SuratKeluarViewController::class, 'show'])->name('surat_keluar.view');
