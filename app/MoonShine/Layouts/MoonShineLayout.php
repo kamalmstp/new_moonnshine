@@ -93,42 +93,42 @@ final class MoonShineLayout extends AppLayout
             MenuGroup::make('Kepegawaian', [
                 MenuItem::make('Pegawai', PegawaiResource::class)
                     ->icon('user-group')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 MenuItem::make('Riwayat Pendidikan', RiwayatPendidikanResource::class)
                     ->icon('document-text')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 MenuItem::make('Riwayat Jabatan', RiwayatJabatanResource::class)
                     ->icon('briefcase')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 MenuItem::make('Riwayat Pangkat', RiwayatPangkatResource::class)
                     ->icon('arrow-trending-up')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 MenuItem::make('Pelatihan', PelatihanResource::class)
                     ->icon('presentation-chart-line')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 MenuItem::make('Keahlian Pegawai', KeahlianPegawaiResource::class)
                     ->icon('light-bulb')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
                 //MenuItem::make('Kompetensi Guru', KompetensiGuruResource::class)->icon('clipboard-document-check'),
             ])->icon('user-group')
-              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru'])),
 
             // Grup Permohonan
             MenuGroup::make('Permohonan', [
                 MenuItem::make('Cuti', CutiResource::class)
                     ->icon('calendar-days')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
                 MenuItem::make('Mutasi', MutasiResource::class)
                     ->icon('arrow-path')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
                 MenuItem::make('Pensiun', PensiunResource::class)
                     ->icon('building-office')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
                 MenuItem::make('Perjalanan Dinas', PerjalananDinasResource::class)
                     ->icon('truck')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
             ])->icon('document-arrow-up')
-              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
 
             // Grup Surat
             MenuGroup::make('Persuratan & Arsip', [
@@ -144,30 +144,30 @@ final class MoonShineLayout extends AppLayout
             MenuGroup::make('Laporan',[
                 MenuItem::make('Laporan Pegawai', LaporanPegawaiPage::class)
                     ->icon('users')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Cuti', LaporanCutiPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Mutasi', LaporanMutasiPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Pelatihan', LaporanPelatihanPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Pensiun', LaporanPensiunPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Perjalanan Dinas', LaporanPerjalananDinasPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Surat Masuk', LaporanSuratMasukPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Laporan Surat Keluar', LaporanSuratKeluarPage::class)
                     ->icon('document')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
             ])->icon('document-chart-bar')
-              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Guru', 'Kepala Sekolah'])),
+              ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
 
             MenuGroup::make('Referensi Data', [
                 MenuItem::make('Pangkat & Golongan', PangkatGolonganResource::class)
@@ -182,10 +182,10 @@ final class MoonShineLayout extends AppLayout
             MenuGroup::make('System', [
                 MenuItem::make('User', MoonShineUserResource::class)
                     ->icon('users')
-                    ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'), // Hanya Admin
+                    ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'),
                 MenuItem::make('Roles', MoonShineUserRoleResource::class)
                     ->icon('shield-check')
-                    ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'), // Hanya Admin
+                    ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'),
             ])->icon('cog-6-tooth')
               ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'),
 
