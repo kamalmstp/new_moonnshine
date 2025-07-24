@@ -16,6 +16,7 @@ use MoonShine\Support\Enums\FormMethod;
 use MoonShine\UI\Fields\{Text, Select, Date};
 use MoonShine\UI\Components\ActionButton; // Import ActionButton
 use App\Http\Controllers\ExportController; // Import ExportController
+use Carbon\Carbon;
 
 class LaporanPelatihanPage extends Page
 {
@@ -33,52 +34,43 @@ class LaporanPelatihanPage extends Page
 
     protected function components(): iterable
     {
-        $filters = request()->only(['jenis_pelatihan', 'status_pelaksanaan']);
+        $filters = request()->only(['tahun']);
 
         $pelatihan = Pelatihan::query()
-            ->with('pegawai') // Pastikan relasi 'pegawai' ada di model Pelatihan
-            ->when($filters['jenis_pelatihan'] ?? null, fn ($q, $val) => $q->where('jenis_pelatihan', $val))
-            ->when($filters['status_pelaksanaan'] ?? null, fn ($q, $val) => $q->where('status_pelaksanaan', $val))
+            ->with('pegawai') // Asumsi ada relasi 'pegawai' di model Pelatihan
+            ->when($filters['tahun'] ?? null, fn ($q, $val) => $q->where('tahun', $val)) // Filter berdasarkan 'tahun'
             ->latest()
             ->get();
 
-        // Siapkan URL untuk export XLSX, sertakan parameter filter saat ini
         $exportXlsxUrl = route('moonshine.laporan.pelatihan.export.xlsx', [
-            'jenis_pelatihan' => $filters['jenis_pelatihan'] ?? null,
-            'status_pelaksanaan' => $filters['status_pelaksanaan'] ?? null,
+            'tahun' => $filters['tahun'] ?? null,
         ]);
 
-        // Siapkan URL untuk export PDF, sertakan parameter filter saat ini
         $exportPdfUrl = route('moonshine.laporan.pelatihan.export.pdf', [
-            'jenis_pelatihan' => $filters['jenis_pelatihan'] ?? null,
-            'status_pelaksanaan' => $filters['status_pelaksanaan'] ?? null,
+            'tahun' => $filters['tahun'] ?? null,
         ]);
+
+        $currentYear = Carbon::now()->year;
+        $yearOptions = ['' => 'Semua Tahun'];
+        for ($i = 0; $i < 5; $i++) { // Menampilkan 5 tahun terakhir
+            $year = $currentYear - $i;
+            $yearOptions[$year] = (string) $year;
+        }
 
         return [
             Grid::make([
                 Column::make([
                     // Bagian Filter
                     Box::make([
-                        Heading::make('Filter Laporan Pelatihan'), // Judul untuk filter
+                        Heading::make('Filter Laporan Pelatihan'),
                         FormBuilder::make(
                             action: request()->url(),
                             method: FormMethod::GET,
                             fields: [
-                                Select::make('Jenis Pelatihan', 'jenis_pelatihan')->options([
-                                    '' => 'Semua Jenis',
-                                    'Workshop' => 'Workshop',
-                                    'Seminar' => 'Seminar',
-                                    'Kursus' => 'Kursus',
-                                    'Bimtek' => 'Bimtek',
-                                    'Lainnya' => 'Lainnya',
-                                ])->setValue(request('jenis_pelatihan')), // Menjaga nilai filter
-                                Select::make('Status Pelaksanaan', 'status_pelaksanaan')->options([
-                                    '' => 'Semua Status',
-                                    'Terjadwal' => 'Terjadwal',
-                                    'Sedang Berlangsung' => 'Sedang Berlangsung',
-                                    'Selesai' => 'Selesai',
-                                    'Dibatalkan' => 'Dibatalkan',
-                                ])->setValue(request('status_pelaksanaan')), // Menjaga nilai filter
+                                Select::make('Tahun Pelatihan', 'tahun')
+                                    ->options($yearOptions)
+                                    ->setValue(request('tahun'))
+                                    ->hint('Filter berdasarkan tahun pelatihan.'),
                             ]
                         )->submit('Terapkan Filter')
                         ->buttons([
@@ -104,15 +96,13 @@ class LaporanPelatihanPage extends Page
                             ->items($pelatihan)
                             ->fields([
                                 Text::make('Nama Pegawai', 'pegawai.nama_lengkap'),
-                                Text::make('Nama Pelatihan', 'nama_pelatihan'),
-                                Text::make('Tema', 'tema'), // Kolom baru
-                                Text::make('Jenis Pelatihan', 'jenis_pelatihan'),
+                                Text::make('Tema', 'tema'),
                                 Text::make('Penyelenggara', 'penyelenggara'),
-                                Text::make('Tempat Pelatihan', 'tempat_pelatihan'), // Kolom baru
-                                Text::make('Tahun', 'tahun'), // Kolom baru
+                                Text::make('Tempat Pelatihan', 'tempat_pelatihan'),
+                                Text::make('Tahun', 'tahun'),
                                 Date::make('Tgl. Mulai', 'tanggal_mulai'),
                                 Date::make('Tgl. Selesai', 'tanggal_selesai'),
-                                Text::make('Surat Tugas', 'surat_tugas'), // Kolom baru
+                                Text::make('Surat Tugas', 'surat_tugas'),
                                 Text::make('Sertifikat', 'sertifikat'),
                             ])
                             ->buttons([]) // Kosongkan array buttons

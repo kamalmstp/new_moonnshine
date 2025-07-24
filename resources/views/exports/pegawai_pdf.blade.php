@@ -90,7 +90,7 @@
         }
         th, td {
             border: 1px solid #ddd; /* Garis tipis untuk sel */
-            padding: 10px 12px; /* Padding yang lebih baik */
+            padding: 5px 6px; /* Padding yang lebih baik */
             text-align: left;
             vertical-align: top;
             word-wrap: break-word; /* Memastikan teks panjang tidak keluar tabel */

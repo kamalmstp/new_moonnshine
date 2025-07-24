@@ -103,7 +103,7 @@
         }
         th, td {
             border: 1px solid #ddd; /* Garis tipis untuk sel */
-            padding: 10px 12px; /* Padding yang lebih baik */
+            padding: 5px 6px; /* Padding yang lebih baik */
             text-align: left;
             vertical-align: top;
             word-wrap: break-word; /* Memastikan teks panjang tidak keluar tabel */
@@ -226,9 +226,7 @@
             <tr>
                 <th>No.</th>
                 <th>Nama Pegawai</th>
-                <th>Nama Pelatihan</th>
                 <th>Tema</th>
-                <th>Jenis Pelatihan</th>
                 <th>Penyelenggara</th>
                 <th>Tempat Pelatihan</th>
                 <th>Tahun</th>
@@ -241,9 +239,7 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $p->pegawai->nama_lengkap ?? '-' }}</td>
-                <td>{{ $p->nama_pelatihan ?? '-' }}</td>
                 <td>{{ $p->tema ?? '-' }}</td>
-                <td>{{ $p->jenis_pelatihan ?? '-' }}</td>
                 <td>{{ $p->penyelenggara ?? '-' }}</td>
                 <td>{{ $p->tempat_pelatihan ?? '-' }}</td>
                 <td>{{ $p->tahun ?? '-' }}</td>

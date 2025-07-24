@@ -31,6 +31,8 @@ class KeahlianPegawaiResource extends ModelResource
             BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Nama Keahlian', 'nama_keahlian'),
             Text::make('Nomor Sertifikat', 'no_sertifikat'),
+            File::make('Sertifikat', 'sertifikat')->dir('sertifikat_keahlian')->disk('public')->removable(false),
+            File::make('Modul', 'modul')->dir('modul_keahlian')->disk('public')->removable(false),
         ];
     }
 
@@ -45,6 +47,7 @@ class KeahlianPegawaiResource extends ModelResource
                 Text::make('Nama Keahlian', 'nama_keahlian')->required(),
                 Text::make('Nomor Sertifikat', 'no_sertifikat'),
                 File::make('Sertifikat', 'sertifikat')->dir('sertifikat_keahlian')->disk('public')->nullable(),
+                File::make('Modul', 'modul')->dir('modul_keahlian')->disk('public')->nullable(),
                 Text::make('Keterangan', 'keterangan')->nullable(),
             ])
         ];
@@ -60,6 +63,7 @@ class KeahlianPegawaiResource extends ModelResource
                 Text::make('Nama Keahlian', 'nama_keahlian')->required(),
                 Text::make('Nomor Sertifikat', 'no_sertifikat'),
                 File::make('Sertifikat', 'sertifikat')->dir('sertifikat_keahlian')->disk('public')->nullable(),
+                File::make('Modul', 'modul')->dir('modul_keahlian')->disk('public')->nullable(),
                 Text::make('Keterangan', 'keterangan')->nullable(),
         ];
     }

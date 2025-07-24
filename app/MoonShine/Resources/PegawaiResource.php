@@ -16,8 +16,7 @@ use MoonShine\UI\Fields\{
 use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\Actions\DeleteAction;
-use MoonShine\Actions\MassDeleteAction;
+use MoonShine\Actions\{DeleteAction, MassDeleteAction, CreateAction};
 use MoonShine\Fields\Filters\TextFilter;
 use MoonShine\Fields\Filters\SelectFilter;
 use MoonShine\Enums\PageType;

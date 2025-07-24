@@ -103,7 +103,7 @@
         }
         th, td {
             border: 1px solid #ddd; 
-            padding: 10px 12px; 
+            padding: 5px 6px; 
             text-align: left;
             vertical-align: top;
             word-wrap: break-word; 
