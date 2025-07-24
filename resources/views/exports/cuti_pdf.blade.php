@@ -217,7 +217,7 @@
 
     <!-- Bagian Judul Laporan dan Periode Cetak -->
     <div class="report-info">
-        <div class="report-title">LAPORAN DATA CUTI PEGAWAI</div> <!-- Judul disesuaikan -->
+        <div class="report-title">LAPORAN CUTI PEGAWAI</div> <!-- Judul disesuaikan -->
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 

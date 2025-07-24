@@ -218,7 +218,7 @@
     </div>
 
     <div class="report-info">
-        <div class="report-title">LAPORAN DATA PEGAWAI</div>
+        <div class="report-title">LAPORAN PEGAWAI</div>
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 
