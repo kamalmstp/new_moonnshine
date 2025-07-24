@@ -138,16 +138,11 @@
         }
 
         /* Styling untuk kolom tertentu agar lebih rapi */
-        td:nth-child(1) { width: 3%; text-align: center; } /* No. */
-        td:nth-child(2) { width: 15%; } /* Nama Pegawai */
-        td:nth-child(3) { width: 13%; } /* Nama Pelatihan */
-        td:nth-child(4) { width: 12%; } /* Tema */
-        td:nth-child(5) { width: 10%; } /* Jenis Pelatihan */
-        td:nth-child(6) { width: 15%; } /* Penyelenggara */
-        td:nth-child(7) { width: 12%; } /* Tempat Pelatihan */
-        td:nth-child(8) { width: 7%; } /* Tahun */
-        td:nth-child(9) { width: 10%; } /* Tgl. Mulai */
-        td:nth-child(10) { width: 10%; } /* Tgl. Selesai */
+        td:nth-child(1) { width: 2%; text-align: center; }
+        td:nth-child(2) { width: 16%; } /* Nama Pegawai */
+        td:nth-child(4) { width: 27%; } /* Tema */
+        td:nth-child(6) { width: 28%; } /* Penyelenggara */
+        td:nth-child(7) { width: 27%; } /* Tempat Pelatihan */
         /* Sesuaikan lebar kolom sesuai kebutuhan Anda */
 
         /* Styling untuk Blok Tanda Tangan */
