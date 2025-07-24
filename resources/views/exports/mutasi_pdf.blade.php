@@ -21,6 +21,7 @@
 
         /* Header Laporan */
         .header {
+            margin-top: -30px;
             margin-bottom: 5px; /* Sesuaikan jarak dari bagian di bawahnya */
             border-bottom: 2px solid #000; /* Garis bawah hitam seperti di gambar */
             padding-bottom: 10px;
@@ -150,7 +151,7 @@
 
         /* Styling untuk Blok Tanda Tangan */
         .signature-block {
-            margin-top: 40px; /* Jarak dari tabel */
+            margin-top: 20px; /* Jarak dari tabel */
             width: 40%; /* Lebar blok tanda tangan */
             float: right; /* Posisikan di kanan */
             text-align: left; /* Teks di dalam blok rata kiri */

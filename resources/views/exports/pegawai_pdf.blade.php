@@ -14,12 +14,13 @@
         body {
             font-family: 'Arial', sans-serif; /* Fallback ke Arial jika Arial Unicode MS tidak tersedia */
             font-size: 10pt;
-            margin: 0.5in; /* Margin halaman */
+            margin: 0.15in; /* Margin halaman */
             color: #333;
         }
 
         /* Header Laporan */
         .header {
+            margin-top: -30px;
             margin-bottom: 30px;
             border-bottom: 2px solid #000; /* Garis bawah hitam seperti di gambar */
             padding-bottom: 10px;
@@ -27,7 +28,7 @@
         .header table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px; /* Jarak antara kop dan judul laporan */
+            margin-bottom: 3px; /* Jarak antara kop dan judul laporan */
         }
         .header table td {
             border: none; /* Hapus border default sel tabel di header */
@@ -112,9 +113,9 @@
         /* Footer Halaman (untuk nomor halaman) */
         .footer {
             position: fixed;
-            bottom: 0.5in;
-            left: 0.5in;
-            right: 0.5in;
+            bottom: 0.15in;
+            left: 0.15in;
+            right: 0.15in;
             text-align: center;
             font-size: 8pt;
             color: #777;
@@ -156,7 +157,7 @@
 
         /* Styling untuk Blok Tanda Tangan */
         .signature-block {
-            margin-top: 40px; /* Jarak dari tabel */
+            margin-top: 20px; /* Jarak dari tabel */
             width: 40%; /* Lebar blok tanda tangan */
             float: right; /* Posisikan di kanan */
             text-align: left; /* Teks di dalam blok rata kiri */

@@ -21,6 +21,7 @@
 
         
         .header {
+            margin-top: -30px;
             margin-bottom: 5px; 
             border-bottom: 2px solid #000; 
             padding-bottom: 10px;
@@ -150,7 +151,7 @@
 
         
         .signature-block {
-            margin-top: 40px; 
+            margin-top: 20px; 
             width: 40%; 
             float: right; 
             text-align: left; 

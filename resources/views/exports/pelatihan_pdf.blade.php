@@ -4,7 +4,6 @@
     <title>Laporan Data Pelatihan Pegawai SMAN 2 Banjarmasin</title>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <style>
-        /* Menggunakan font yang lebih aman untuk Dompdf dan mendukung karakter Latin Extended */
         @font-face {
             font-family: 'ArialUnicodeMS';
             src: url('{{ public_path('fonts/arial-unicode-ms.ttf') }}') format('truetype');
@@ -13,14 +12,14 @@
         }
 
         body {
-            font-family: 'Arial', sans-serif; /* Fallback ke Arial jika Arial Unicode MS tidak tersedia */
+            font-family: 'Arial', sans-serif;
             font-size: 10pt;
-            margin: 0.5in; /* Margin halaman */
+            margin: 0.5in;
             color: #333;
         }
 
-        /* Header Laporan */
         .header {
+            margin-top: -30px;
             margin-bottom: 5px; /* Sesuaikan jarak dari bagian di bawahnya */
             border-bottom: 2px solid #000; /* Garis bawah hitam seperti di gambar */
             padding-bottom: 10px;
@@ -153,7 +152,7 @@
 
         /* Styling untuk Blok Tanda Tangan */
         .signature-block {
-            margin-top: 40px; /* Jarak dari tabel */
+            margin-top: 20px; /* Jarak dari tabel */
             width: 40%; /* Lebar blok tanda tangan */
             float: right; /* Posisikan di kanan */
             text-align: left; /* Teks di dalam blok rata kiri */
