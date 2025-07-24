@@ -14,76 +14,76 @@
         body {
             font-family: 'Arial', sans-serif;
             font-size: 10pt;
-            margin: 0.5in;
+            margin:  0.15in;
             color: #333;
         }
 
         .header {
             margin-top: -30px;
-            margin-bottom: 5px; /* Sesuaikan jarak dari bagian di bawahnya */
-            border-bottom: 2px solid #000; /* Garis bawah hitam seperti di gambar */
+            margin-bottom: 5px;
+            border-bottom: 2px solid #000;
             padding-bottom: 10px;
         }
         .header table {
             width: 100%;
             border-collapse: collapse;
-            margin-bottom: 5px; /* Jarak antara kop dan akreditasi */
+            margin-bottom: 5px;
         }
         .header table td {
-            border: none; /* Hapus border default sel tabel di header */
+            border: none;
             padding: 0;
-            vertical-align: middle; /* Rata tengah vertikal untuk konten sel */
+            vertical-align: middle;
         }
         .header .logo-cell-left {
-            width: 15%; /* Lebar kolom logo kiri */
+            width: 15%;
             text-align: left;
         }
         .header .logo-cell-right {
-            width: 15%; /* Lebar kolom logo kanan */
+            width: 15%;
             text-align: right;
         }
         .header .logo-cell-left img,
         .header .logo-cell-right img {
-            max-width: 80px; /* Ukuran logo sekolah */
+            max-width: 80px;
             height: auto;
         }
         .header .text-cell {
-            width: 70%; /* Lebar kolom teks utama */
-            text-align: center; /* Teks kop surat rata tengah */
-            line-height: 1.2; /* Mengurangi spasi antar baris */
+            width: 70%;
+            text-align: center;
+            line-height: 1.2;
         }
         .header h2 {
             margin: 0;
-            font-size: 14pt; /* Sesuaikan ukuran font */
-            color: #000; /* Warna hitam */
+            font-size: 14pt;
+            color: #000;
         }
         .header h3 {
             margin: 0;
-            font-size: 12pt; /* Sesuaikan ukuran font */
+            font-size: 12pt;
             color: #000;
         }
         .header p {
             margin: 2px 0;
-            font-size: 8pt; /* Sesuaikan ukuran font */
+            font-size: 8pt;
             color: #000;
         }
         .terakreditasi {
             font-size: 9pt;
             font-weight: bold;
             text-align: right;
-            margin-top: 5px; /* Jarak dari garis bawah kop */
+            margin-top: 5px;
         }
 
-        /* Styling untuk bagian judul laporan dan periode cetak */
+       
         .report-info {
             text-align: center;
-            margin-top: 10px; /* Jarak dari garis kop */
-            margin-bottom: 20px; /* Jarak dari tabel data */
+            margin-top: 10px;
+            margin-bottom: 20px;
         }
         .report-info .report-title {
             font-size: 14pt;
             font-weight: bold;
-            margin-bottom: 5px; /* Jarak antara judul laporan dan periode cetak */
+            margin-bottom: 5px;
             color: #000;
         }
         .report-info .print-period {
@@ -93,40 +93,40 @@
         }
 
 
-        /* Styling Tabel Data Pelatihan */
+       
         table {
             width: 100%;
             border-collapse: collapse;
-            margin-top: 0; /* Disesuaikan karena ada .report-info di atasnya */
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Sedikit bayangan pada tabel */
+            margin-top: 0;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
         th, td {
-            border: 1px solid #ddd; /* Garis tipis untuk sel */
-            padding: 5px 6px; /* Padding yang lebih baik */
+            border: 1px solid #ddd;
+            padding: 5px 6px;
             text-align: left;
             vertical-align: top;
-            word-wrap: break-word; /* Memastikan teks panjang tidak keluar tabel */
+            word-wrap: break-word;
         }
         th {
-            background-color: #007bff; /* Warna biru untuk header tabel */
+            background-color: #007bff;
             color: white;
             font-weight: bold;
             text-transform: uppercase;
             font-size: 9pt;
         }
         tr:nth-child(even) {
-            background-color: #f8f9fa; /* Warna latar belakang baris genap */
+            background-color: #f8f9fa;
         }
         tr:hover {
-            background-color: #e2e6ea; /* Efek hover (tidak terlihat di PDF, tapi praktik baik) */
+            background-color: #e2e6ea;
         }
 
-        /* Footer Halaman (untuk nomor halaman) */
+       
         .footer {
             position: fixed;
-            bottom: 0.5in;
-            left: 0.5in;
-            right: 0.5in;
+            bottom:  0.15in;
+            left:  0.15in;
+            right:  0.15in;
             text-align: center;
             font-size: 8pt;
             color: #777;
@@ -179,9 +179,8 @@
         <table>
             <tr>
                 <td class="logo-cell-left">
-                    <!-- Logo kiri dengan Base64 encoding -->
                     @php
-                        $logoLeftPath = public_path('logo-dinas.png'); // Asumsi logo kiri
+                        $logoLeftPath = public_path('logo-dinas.png');
                         $logoLeftType = pathinfo($logoLeftPath, PATHINFO_EXTENSION);
                         $logoLeftData = file_get_contents($logoLeftPath);
                         $base64LogoLeft = 'data:image/' . $logoLeftType . ';base64,' . base64_encode($logoLeftData);
@@ -197,10 +196,9 @@
                     <p>Laman sman2banjarmasin.sch.id, Pos-el bjm.sman2.mlw@gmail.com</p>
                 </td>
                 <td class="logo-cell-right">
-                    <!-- Logo kanan dengan Base64 encoding -->
+                    
                     @php
-                        // Asumsi ada logo kedua yang berbeda, jika sama gunakan logoLeftPath
-                        $logoRightPath = public_path('logo-app.png'); // Anda perlu menyediakan file ini
+                        $logoRightPath = public_path('logo-app.png');
                         $logoRightType = pathinfo($logoRightPath, PATHINFO_EXTENSION);
                         $logoRightData = file_get_contents($logoRightPath);
                         $base64LogoRight = 'data:image/' . $logoRightType . ';base64,' . base64_encode($logoRightData);
@@ -214,7 +212,6 @@
         </div>
     </div>
 
-     
     <div class="report-info">
         <div class="report-title">LAPORAN PELATIHAN PEGAWAI</div> 
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>

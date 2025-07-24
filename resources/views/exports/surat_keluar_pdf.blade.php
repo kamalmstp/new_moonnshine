@@ -15,7 +15,7 @@
         body {
             font-family: 'Arial', sans-serif; 
             font-size: 10pt;
-            margin: 0.5in; 
+            margin:  0.15in; 
             color: #333;
         }
 
@@ -126,9 +126,9 @@
         
         .footer {
             position: fixed;
-            bottom: 0.5in;
-            left: 0.5in;
-            right: 0.5in;
+            bottom:  0.15in;
+            left:  0.15in;
+            right:  0.15in;
             text-align: center;
             font-size: 8pt;
             color: #777;

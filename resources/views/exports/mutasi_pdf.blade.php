@@ -15,7 +15,7 @@
         body {
             font-family: 'Arial', sans-serif; /* Fallback ke Arial jika Arial Unicode MS tidak tersedia */
             font-size: 10pt;
-            margin: 0.5in; /* Margin halaman */
+            margin:  0.15in; /* Margin halaman */
             color: #333;
         }
 
@@ -126,9 +126,9 @@
         /* Footer Halaman (untuk nomor halaman) */
         .footer {
             position: fixed;
-            bottom: 0.5in;
-            left: 0.5in;
-            right: 0.5in;
+            bottom:  0.15in;
+            left:  0.15in;
+            right:  0.15in;
             text-align: center;
             font-size: 8pt;
             color: #777;
