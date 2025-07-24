@@ -242,17 +242,15 @@
         </tbody>
     </table>
 
-    <!-- Blok Tanda Tangan -->
     <div class="signature-block">
         <p>Banjarmasin, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
         <p>Plt. Kepala Sekolah,</p>
-        <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+        <br><br>
         <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
         <p class="title">Pembina Tk. I</p>
         <p class="nip">NIP 196507071997021002</p>
     </div>
 
-    <!-- Footer untuk nomor halaman (Dompdf akan mengisinya secara otomatis) -->
     <script type="text/php">
         if (isset($pdf)) {
             $text = "Halaman {PAGE_NUM} dari {PAGE_COUNT}";

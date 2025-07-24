@@ -214,9 +214,9 @@
         </div>
     </div>
 
-    <!-- Bagian Judul Laporan dan Periode Cetak -->
+     
     <div class="report-info">
-        <div class="report-title">LAPORAN PENSIUN PEGAWAI</div> <!-- Judul disesuaikan -->
+        <div class="report-title">LAPORAN PENSIUN PEGAWAI</div> 
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 
@@ -228,9 +228,9 @@
                 <th>Jenis Pensiun</th>
                 <th>Tgl. Usulan</th>
                 <th>Status Pengajuan</th>
-                <th>Keterangan</th>
                 <th>No. Surat</th>
-                <th>Tgl. Surat</th>
+                <th>Keterangan</th>
+                <!-- <th>Tgl. Surat</th> -->
             </tr>
         </thead>
         <tbody>
@@ -241,9 +241,9 @@
                 <td>{{ $p->jenis_pensiun ?? '-' }}</td>
                 <td>{{ $p->tanggal_usulan ?? '-' }}</td>
                 <td>{{ $p->status_pengajuan ?? '-' }}</td>
-                <td>{{ $p->keterangan ?? '-' }}</td>
                 <td>{{ $p->nomor_surat ?? '-' }}</td>
-                <td>{{ $p->tanggal_surat ?? '-' }}</td>
+                <td>{{ $p->keterangan ?? '-' }}</td>
+                <!-- <td>{{ $p->tanggal_surat ?? '-' }}</td> -->
             </tr>
             @empty
             <tr>
@@ -257,7 +257,7 @@
     <div class="signature-block">
         <p>Banjarmasin, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
         <p>Plt. Kepala Sekolah,</p>
-        <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+        <br><br>
         <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
         <p class="title">Pembina Tk. I</p>
         <p class="nip">NIP 196507071997021002</p>

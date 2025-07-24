@@ -15,8 +15,8 @@ use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Support\Enums\FormMethod;
 use MoonShine\UI\Fields\{Text, Date, Select};
 use MoonShine\UI\Typography\Paragraph;
-use MoonShine\UI\Components\ActionButton; // Import ActionButton
-use App\Http\Controllers\ExportController; // Import ExportController
+use MoonShine\UI\Components\ActionButton;
+use App\Http\Controllers\ExportController;
 
 class LaporanCutiPage extends Page
 {
@@ -36,19 +36,19 @@ class LaporanCutiPage extends Page
     {
         $filters = request()->only(['status', 'jenis_cuti']);
         $cuti = Cuti::query()
-            ->with('pegawai') // Pastikan relasi 'pegawai' ada di model Cuti
+            ->with('pegawai')
             ->when($filters['status'] ?? null, fn ($q, $val) => $q->where('status', $val))
             ->when($filters['jenis_cuti'] ?? null, fn ($q, $val) => $q->where('jenis_cuti', $val))
             ->latest()
             ->get();
 
-        // Siapkan URL untuk export XLSX, sertakan parameter filter saat ini
+       
         $exportXlsxUrl = route('moonshine.laporan.cuti.export.xlsx', [
             'status' => $filters['status'] ?? null,
             'jenis_cuti' => $filters['jenis_cuti'] ?? null,
         ]);
 
-        // Siapkan URL untuk export PDF, sertakan parameter filter saat ini
+       
         $exportPdfUrl = route('moonshine.laporan.cuti.export.pdf', [
             'status' => $filters['status'] ?? null,
             'jenis_cuti' => $filters['jenis_cuti'] ?? null,
@@ -57,9 +57,9 @@ class LaporanCutiPage extends Page
         return [
             Grid::make([
                 Column::make([
-                    // Bagian Filter
+                   
                     Box::make([
-                        Heading::make('Filter Laporan Cuti'), // Judul untuk filter
+                        Heading::make('Filter Laporan Cuti'),
                         FormBuilder::make(
                             action: request()->url(),
                             method: FormMethod::GET,
@@ -69,7 +69,7 @@ class LaporanCutiPage extends Page
                                     'diproses' => 'Diproses',
                                     'disetujui' => 'Disetujui',
                                     'ditolak' => 'Ditolak',
-                                ])->setValue(request('status')), // Menjaga nilai filter
+                                ])->setValue(request('status')),
                                 Select::make('Jenis Cuti', 'jenis_cuti')->options([
                                     '' => 'Semua Jenis',
                                     'Tahunan' => 'Tahunan',
@@ -77,11 +77,11 @@ class LaporanCutiPage extends Page
                                     'Melahirkan' => 'Melahirkan',
                                     'Ibadah' => 'Ibadah',
                                     'Lainnya' => 'Lainnya',
-                                ])->setValue(request('jenis_cuti')), // Menjaga nilai filter
+                                ])->setValue(request('jenis_cuti')),
                             ]
                         )->submit('Terapkan Filter')
                         ->buttons([
-                            // Tombol Reset Filter
+                           
                             ActionButton::make('Reset Filter', request()->url())
                                 ->icon('arrow-path')
                                 ->primary(),
@@ -98,9 +98,9 @@ class LaporanCutiPage extends Page
                         ]),
                     ])->customAttributes(['class' => 'mb-4']), 
 
-                    // Bagian Tabel Data Cuti
+                   
                     Box::make([
-                        Heading::make('Data Pengajuan Cuti'), // Judul untuk tabel
+                        Heading::make('Data Pengajuan Cuti'),
                         TableBuilder::make()
                             ->items($cuti)
                             ->fields([
@@ -108,12 +108,11 @@ class LaporanCutiPage extends Page
                                 Text::make('Jenis Cuti', 'jenis_cuti'),
                                 Date::make('Tanggal Mulai', 'tanggal_mulai'),
                                 Date::make('Tanggal Selesai', 'tanggal_selesai'),
-                                Text::make('Alasan', 'alasan'), // Tambahkan kolom alasan
+                                Text::make('Alasan', 'alasan'),
                                 Text::make('Status', 'status'),
-                                Text::make('Nomor Surat', 'nomor_surat'), // Tambahkan kolom nomor surat
-                                Date::make('Tanggal Surat', 'tanggal_surat'), // Tambahkan kolom tanggal surat
+                                Text::make('Nomor Surat', 'nomor_surat'),
                             ])
-                            ->buttons([]) // Kosongkan array buttons
+                            ->buttons([])
                     ])->class('shadow-xl rounded-xl p-4'),
                 ])->class('max-w-full'),
             ])

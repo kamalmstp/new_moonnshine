@@ -3,7 +3,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Pages;
 
-use App\Models\Pelatihan; // Pastikan model Pelatihan sudah ada
+use App\Models\Pelatihan;
 use MoonShine\Laravel\Pages\Page;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\UI\Components\Layout\Grid;
@@ -14,8 +14,8 @@ use MoonShine\UI\Components\Table\TableBuilder;
 use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Support\Enums\FormMethod;
 use MoonShine\UI\Fields\{Text, Select, Date};
-use MoonShine\UI\Components\ActionButton; // Import ActionButton
-use App\Http\Controllers\ExportController; // Import ExportController
+use MoonShine\UI\Components\ActionButton;
+use App\Http\Controllers\ExportController;
 use Carbon\Carbon;
 
 class LaporanPelatihanPage extends Page
@@ -37,8 +37,8 @@ class LaporanPelatihanPage extends Page
         $filters = request()->only(['tahun']);
 
         $pelatihan = Pelatihan::query()
-            ->with('pegawai') // Asumsi ada relasi 'pegawai' di model Pelatihan
-            ->when($filters['tahun'] ?? null, fn ($q, $val) => $q->where('tahun', $val)) // Filter berdasarkan 'tahun'
+            ->with('pegawai')
+            ->when($filters['tahun'] ?? null, fn ($q, $val) => $q->where('tahun', $val))
             ->latest()
             ->get();
 
@@ -52,7 +52,7 @@ class LaporanPelatihanPage extends Page
 
         $currentYear = Carbon::now()->year;
         $yearOptions = ['' => 'Semua Tahun'];
-        for ($i = 0; $i < 5; $i++) { // Menampilkan 5 tahun terakhir
+        for ($i = 0; $i < 5; $i++) {
             $year = $currentYear - $i;
             $yearOptions[$year] = (string) $year;
         }
@@ -60,7 +60,7 @@ class LaporanPelatihanPage extends Page
         return [
             Grid::make([
                 Column::make([
-                    // Bagian Filter
+                   
                     Box::make([
                         Heading::make('Filter Laporan Pelatihan'),
                         FormBuilder::make(
@@ -74,7 +74,7 @@ class LaporanPelatihanPage extends Page
                             ]
                         )->submit('Terapkan Filter')
                         ->buttons([
-                            // Tombol Reset Filter
+                           
                             ActionButton::make('Reset Filter', request()->url())
                                 ->icon('arrow-path')
                                 ->primary(),
@@ -87,11 +87,11 @@ class LaporanPelatihanPage extends Page
                                 ->info()
                                 ->blank(),
                         ]),
-                    ])->customAttributes(['class' => 'mb-4']), // Menambahkan margin bawah
+                    ])->customAttributes(['class' => 'mb-4']),
 
-                    // Bagian Tabel Data Pelatihan
+                   
                     Box::make([
-                        Heading::make('Data Pelatihan Pegawai'), // Judul untuk tabel
+                        Heading::make('Data Pelatihan Pegawai'),
                         TableBuilder::make()
                             ->items($pelatihan)
                             ->fields([
@@ -99,13 +99,10 @@ class LaporanPelatihanPage extends Page
                                 Text::make('Tema', 'tema'),
                                 Text::make('Penyelenggara', 'penyelenggara'),
                                 Text::make('Tempat Pelatihan', 'tempat_pelatihan'),
-                                Text::make('Tahun', 'tahun'),
                                 Date::make('Tgl. Mulai', 'tanggal_mulai'),
                                 Date::make('Tgl. Selesai', 'tanggal_selesai'),
-                                Text::make('Surat Tugas', 'surat_tugas'),
-                                Text::make('Sertifikat', 'sertifikat'),
                             ])
-                            ->buttons([]) // Kosongkan array buttons
+                            ->buttons([])
                     ])->class('shadow-xl rounded-xl p-4'),
                 ])->class('max-w-full'),
             ])

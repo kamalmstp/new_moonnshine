@@ -214,9 +214,9 @@
         </div>
     </div>
 
-    <!-- Bagian Judul Laporan dan Periode Cetak -->
+     
     <div class="report-info">
-        <div class="report-title">LAPORAN PELATIHAN PEGAWAI</div> <!-- Judul disesuaikan -->
+        <div class="report-title">LAPORAN PELATIHAN PEGAWAI</div> 
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 
@@ -228,9 +228,8 @@
                 <th>Tema</th>
                 <th>Penyelenggara</th>
                 <th>Tempat Pelatihan</th>
-                <th>Tahun</th>
-                <th>Tgl. Mulai</th>
-                <th>Tgl. Selesai</th>
+                <!-- <th>Tgl. Mulai</th>
+                <th>Tgl. Selesai</th> -->
             </tr>
         </thead>
         <tbody>
@@ -241,9 +240,8 @@
                 <td>{{ $p->tema ?? '-' }}</td>
                 <td>{{ $p->penyelenggara ?? '-' }}</td>
                 <td>{{ $p->tempat_pelatihan ?? '-' }}</td>
-                <td>{{ $p->tahun ?? '-' }}</td>
-                <td>{{ $p->tanggal_mulai ?? '-' }}</td>
-                <td>{{ $p->tanggal_selesai ?? '-' }}</td>
+                <!-- <td>{{ $p->tanggal_mulai ?? '-' }}</td>
+                <td>{{ $p->tanggal_selesai ?? '-' }}</td> -->
             </tr>
             @empty
             <tr>
@@ -257,7 +255,7 @@
     <div class="signature-block">
         <p>Banjarmasin, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
         <p>Plt. Kepala Sekolah,</p>
-        <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+        <br><br>
         <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
         <p class="title">Pembina Tk. I</p>
         <p class="nip">NIP 196507071997021002</p>

@@ -51,9 +51,9 @@ class LaporanSuratMasukPage extends Page
         return [
             Grid::make([
                 Column::make([
-                    // Bagian Filter
+                
                     Box::make([
-                        Heading::make('Filter Laporan Surat Masuk'), // Judul untuk filter
+                        Heading::make('Filter Laporan Surat Masuk'),
                         FormBuilder::make(
                             action: request()->url(),
                             method: FormMethod::GET,
@@ -64,7 +64,7 @@ class LaporanSuratMasukPage extends Page
                             ]
                         )->submit('Terapkan Filter')
                         ->buttons([
-                            // Tombol Reset Filter
+                        
                             ActionButton::make('Reset Filter', request()->url())
                                 ->icon('arrow-path')
                                 ->primary(),
@@ -80,9 +80,9 @@ class LaporanSuratMasukPage extends Page
                         ]),
                     ])->customAttributes(['class' => 'mb-4']),
 
-                    // Bagian Tabel Data Surat Masuk
+                
                     Box::make([
-                        Heading::make('Data Surat Masuk'), // Judul untuk tabel
+                        Heading::make('Data Surat Masuk'),
                         TableBuilder::make()
                             ->items($suratMasuk)
                             ->fields([
@@ -92,7 +92,7 @@ class LaporanSuratMasukPage extends Page
                                 Date::make('Tanggal Surat', 'tanggal_surat'),
                                 Date::make('Tanggal Diterima', 'tanggal_diterima'),
                             ])
-                            ->buttons([]) // Kosongkan array buttons
+                            ->buttons([])
                     ])->class('shadow-xl rounded-xl p-4'),
                 ])->class('max-w-full'),
             ])

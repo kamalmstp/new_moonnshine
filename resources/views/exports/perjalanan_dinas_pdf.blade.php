@@ -216,9 +216,9 @@
         </div>
     </div>
 
-    <!-- Bagian Judul Laporan dan Periode Cetak -->
+     
     <div class="report-info">
-        <div class="report-title">LAPORAN PERJALANAN DINAS</div> <!-- Judul disesuaikan -->
+        <div class="report-title">LAPORAN PERJALANAN DINAS</div> 
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 
@@ -227,14 +227,10 @@
             <tr>
                 <th>No.</th>
                 <th>Nama Pegawai</th>
-                <th>Jenis Perjalanan</th>
                 <th>Tgl. Berangkat</th>
                 <th>Tgl. Kembali</th>
                 <th>Tujuan</th>
                 <th>Keterangan</th>
-                <th>Status</th>
-                <th>No. Surat Tugas</th>
-                <th>Tgl. Surat Tugas</th>
             </tr>
         </thead>
         <tbody>
@@ -242,14 +238,10 @@
             <tr>
                 <td>{{ $index + 1 }}</td>
                 <td>{{ $pd->pegawai->nama_lengkap ?? '-' }}</td>
-                <td>{{ $pd->jenis_perjalanan ?? '-' }}</td>
                 <td>{{ $pd->tanggal_berangkat ?? '-' }}</td>
                 <td>{{ $pd->tanggal_kembali ?? '-' }}</td>
                 <td>{{ $pd->tujuan ?? '-' }}</td>
                 <td>{{ $pd->keterangan ?? '-' }}</td>
-                <td>{{ $pd->status_perjalanan ?? '-' }}</td>
-                <td>{{ $pd->nomor_surat_tugas ?? '-' }}</td>
-                <td>{{ $pd->tanggal_surat_tugas ?? '-' }}</td>
             </tr>
             @empty
             <tr>
@@ -259,17 +251,15 @@
         </tbody>
     </table>
 
-    <!-- Blok Tanda Tangan -->
     <div class="signature-block">
         <p>Banjarmasin, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
         <p>Plt. Kepala Sekolah,</p>
-        <br><br><br> <!-- Jarak untuk tanda tangan manual -->
+        <br><br>
         <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
         <p class="title">Pembina Tk. I</p>
         <p class="nip">NIP 196507071997021002</p>
     </div>
 
-    <!-- Footer untuk nomor halaman (Dompdf akan mengisinya secara otomatis) -->
     <script type="text/php">
         if (isset($pdf)) {
             $text = "Halaman {PAGE_NUM} dari {PAGE_COUNT}";

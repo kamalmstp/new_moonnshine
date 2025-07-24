@@ -212,9 +212,9 @@
         </div>
     </div>
 
-    <!-- Bagian Judul Laporan dan Periode Cetak -->
+     
     <div class="report-info">
-        <div class="report-title">LAPORAN SURAT MASUK</div> <!-- Judul disesuaikan -->
+        <div class="report-title">LAPORAN SURAT MASUK</div> 
         <p class="print-period">Periode Cetak: {{ \Carbon\Carbon::now()->format('d F Y H:i:s') }} WITA</p>
     </div>
 
@@ -251,7 +251,7 @@
     <div class="signature-block">
         <p>Banjarmasin, {{ \Carbon\Carbon::now()->format('d F Y') }}</p>
         <p>Plt. Kepala Sekolah,</p>
-        <br><br><br>
+        <br><br>
         <p class="name">H. MUKENIANSYAH, S.Pd., M.I.Kom.</p>
         <p class="title">Pembina Tk. I</p>
         <p class="nip">NIP 196507071997021002</p>
