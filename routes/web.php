@@ -3,10 +3,12 @@
 use Illuminate\Support\Facades\Route;
 use App\Models\{Cuti, Mutasi, Pensiun, PerjalananDinas};
 use App\MoonShine\Resources\PegawaiResource;
-use App\Http\Controllers\LaporanPegawaiController;
-use App\Http\Controllers\SuratMasukViewController;
-use App\Http\Controllers\SuratKeluarViewController;
-use App\Http\Controllers\ExportController;
+use App\Http\Controllers\{
+    LaporanPegawaiController,
+    SuratMasukViewController,
+    SuratKeluarViewController,
+    ExportController,
+};
 
 Route::get('/moonshine/laporan-pegawai/export/xlsx', [ExportController::class, 'exportPegawaiXlsx'])
     ->name('moonshine.laporan.pegawai.export.xlsx');

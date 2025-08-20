@@ -49,7 +49,14 @@ class MutasiResource extends ModelResource
 
     protected function detailFields(): iterable
     {
-        return $this->formFields();
+        return [
+            BelongsTo::make('Pegawai', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
+            Text::make('Jenis Mutasi', 'jenis_mutasi'),
+            Date::make('Tanggal Mutasi', 'tanggal_mutasi'),
+            Text::make('Keterangan', 'keterangan'),
+            File::make('SK Mutasi', 'sk_mutasi')->dir('mutasi/sk')->disk('public'),
+            Text::make('Nomor Surat', 'nomor_surat'),
+        ];
     }
 
     protected function rules(mixed $item): array

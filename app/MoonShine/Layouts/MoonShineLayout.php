@@ -4,8 +4,7 @@ declare(strict_types=1);
 
 namespace App\MoonShine\Layouts;
 
-use MoonShine\Laravel\Layouts\AppLayout;
-use MoonShine\Laravel\Layouts\CompactLayout;
+use MoonShine\Laravel\Layouts\{AppLayout, CompactLayout};
 use MoonShine\ColorManager\ColorManager;
 use MoonShine\Contracts\ColorManager\ColorManagerContract;
 use MoonShine\Laravel\Components\Layout\{Locales, Notifications, Profile, Search};
@@ -33,21 +32,23 @@ use MoonShine\UI\Components\{Breadcrumbs,
     When};
 use App\MoonShine\Resources\PangkatGolonganResource;
 use MoonShine\MenuManager\{MenuItem, MenuGroup};
-use App\MoonShine\Resources\MataPelajaranResource;
-use App\MoonShine\Resources\PegawaiResource;
-use App\MoonShine\Resources\RiwayatPendidikanResource;
-use App\MoonShine\Resources\RiwayatJabatanResource;
-use App\MoonShine\Resources\RiwayatPangkatResource;
-use App\MoonShine\Resources\PelatihanResource;
-use App\MoonShine\Resources\KeahlianPegawaiResource;
-use App\MoonShine\Resources\KompetensiGuruResource;
-use App\MoonShine\Resources\CutiResource;
-use App\MoonShine\Resources\MutasiResource;
-use App\MoonShine\Resources\PensiunResource;
-use App\MoonShine\Resources\PerjalananDinasResource;
-use App\MoonShine\Resources\SuratMasukResource;
-use App\MoonShine\Resources\SuratKeluarResource;
-use App\MoonShine\Resources\ArsipDokumenResource;
+use App\MoonShine\Resources\{
+    MataPelajaranResource,
+    PegawaiResource,
+    RiwayatPendidikanResource,
+    RiwayatJabatanResource,
+    RiwayatPangkatResource,
+    PelatihanResource,
+    KeahlianPegawaiResource,
+    KompetensiGuruResource,
+    CutiResource,
+    MutasiResource,
+    PensiunResource,
+    PerjalananDinasResource,
+    SuratMasukResource,
+    SuratKeluarResource,
+    ArsipDokumenResource,
+};
 use App\MoonShine\Resources\{MoonShineUserResource,MoonShineUserRoleResource};
 use App\MoonShine\Pages\{
     Dashboard,
@@ -60,7 +61,7 @@ use App\MoonShine\Pages\{
     LaporanSuratKeluarPage,
     LaporanPelatihanPage
 };
-use MoonShine\Models\MoonshineUser; // Import MoonshineUser model dari namespace MoonShine
+use MoonShine\Models\MoonshineUser;
 
 final class MoonShineLayout extends AppLayout
 {

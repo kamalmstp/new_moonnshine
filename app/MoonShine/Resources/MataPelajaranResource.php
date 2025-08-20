@@ -40,6 +40,7 @@ class MataPelajaranResource extends ModelResource
     {
         return [
             Box::make([
+                Text::make('Kode Mata Pelajaran', 'kode_mapel'),
                 Text::make('Mata Pelajaran', 'nama_mapel'),
             ])
         ];
