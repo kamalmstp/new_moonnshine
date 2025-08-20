@@ -47,22 +47,15 @@ class PangkatGolonganResource extends ModelResource
         ];
     }
 
-    /**
-     * @return list<FieldContract>
-     */
     protected function detailFields(): iterable
     {
         return [
-            //
+            Text::make('Pangkat', 'nama_pangkat'),
+            Text::make('Golongan', 'golongan'),
         ];
     }
 
-    /**
-     * @param PangkatGolongan $item
-     *
-     * @return array<string, string[]|string>
-     * @see https://laravel.com/docs/validation#available-validation-rules
-     */
+
     protected function rules(mixed $item): array
     {
         return [
