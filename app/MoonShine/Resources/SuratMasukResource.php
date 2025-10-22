@@ -8,9 +8,12 @@ use App\Models\SuratMasuk;
 use Illuminate\Support\Str;
 use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Contracts\UI\FieldContract;
+use MoonShine\UI\Components\ActionButton;
+use MoonShine\UI\Components\Modal;
+use MoonShine\Support\ListOf;
 use MoonShine\Contracts\Core\DependencyInjection\FieldsContract;
 use MoonShine\Contracts\UI\ComponentContract;
-use MoonShine\UI\Fields\{ID, Text, Textarea, Image, Date, File, Select};
+use MoonShine\UI\Fields\{ID, Text, Textarea, Hidden, Image, Date, File, Select};
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Alert;
 use MoonShine\Actions\DeleteAction;
@@ -18,6 +21,7 @@ use MoonShine\Actions\MassDeleteAction;
 use MoonShine\Filters\TextFilter;
 use MoonShine\Filters\SelectFilter;
 use MoonShine\Enums\PageType;
+use Closure;
 
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
@@ -149,6 +153,20 @@ class SuratMasukResource extends ModelResource
             Text::make('Nomor Surat', 'nomor_surat'),
             Text::make('Pengirim', 'pengirim'),
         ];
+    }
+
+    protected function indexButtons(): ListOf
+    {
+        return parent::indexButtons()
+            ->add(
+                ActionButton::make('Disposisi', fn($item) => '#')
+                    ->icon('envelope')
+                    ->primary()
+                    ->inModal(
+                        'Buat Disposisi Surat',
+                    )
+                    ->canSee(fn($item) => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+            );
     }
 
     public function actions(): array

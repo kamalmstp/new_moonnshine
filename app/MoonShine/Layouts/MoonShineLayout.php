@@ -62,6 +62,7 @@ use App\MoonShine\Pages\{
     LaporanPelatihanPage
 };
 use MoonShine\Models\MoonshineUser;
+use App\MoonShine\Resources\DisposisiResource;
 
 final class MoonShineLayout extends AppLayout
 {
@@ -139,6 +140,9 @@ final class MoonShineLayout extends AppLayout
                 MenuItem::make('Surat Keluar', SuratKeluarResource::class)
                     ->icon('paper-airplane')
                     ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                MenuItem::make('Disposisi', DisposisiResource::class)
+                    ->icon('envelope')
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekkolah'])),
             ])->icon('inbox')
               ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
 
@@ -189,8 +193,6 @@ final class MoonShineLayout extends AppLayout
                     ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'),
             ])->icon('cog-6-tooth')
               ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Admin'),
-
-            //...parent::menu(),
         ];
     }
 
