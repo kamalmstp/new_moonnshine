@@ -10,11 +10,13 @@ use MoonShine\Laravel\Resources\ModelResource;
 use MoonShine\Contracts\UI\FieldContract;
 use MoonShine\UI\Components\ActionButton;
 use MoonShine\UI\Components\Modal;
+use MoonShine\UI\Components\FormBuilder;
 use MoonShine\Support\ListOf;
 use MoonShine\Contracts\Core\DependencyInjection\FieldsContract;
 use MoonShine\Contracts\UI\ComponentContract;
 use MoonShine\Components\Component;
 use MoonShine\UI\Fields\{ID, Text, Textarea, Hidden, Image, Date, File, Select};
+use MoonShine\Laravel\Fields\Relationships\BelongsTo;
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Alert;
 use MoonShine\Actions\DeleteAction;
@@ -23,7 +25,6 @@ use MoonShine\Filters\TextFilter;
 use MoonShine\Filters\SelectFilter;
 use MoonShine\Enums\PageType;
 use Closure;
-
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Storage;
 
@@ -156,21 +157,26 @@ class SuratMasukResource extends ModelResource
         ];
     }
 
-    protected function indexButtons(): ListOf
-    {
-        return parent::indexButtons()
-            ->add(
-                ActionButton::make('Disposisi')
-                    ->icon('envelope')
-                    ->primary()
-                    ->async()
-                    ->inModal(
+protected function indexButtons(): ListOf
+{
+
+return parent::indexButtons()
+    ->add(
+        ActionButton::make('Buat Disposisi')
+            ->icon('envelope')
+            ->primary()
+            ->inModal(
+                title: 'Buat Disposisi Surat',
+                name: 'create-disposisi-global',
+                builder: function () {
+                    return Modal::make(
                         'Buat Disposisi Surat',
-                        DisposisiResource::class
-                    ),
-                    // ->canSee(fn($item) => auth('moonshine')->user()->moonshineUserRole->name === 'Kepala Sekolah')
-            );
-    }
+                    );
+                }
+            )
+            ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Kepala Sekolah')
+    );
+}
 
     public function actions(): array
     {
@@ -193,5 +199,16 @@ class SuratMasukResource extends ModelResource
     public function getPageType(): PageType
     {
         return PageType::INDEX;
+    }
+
+    protected function components(): iterable
+    {
+        return [
+            Modal::make(
+                'Title',
+                'Content',
+            )
+                ->name('my-modal'),
+        ];
     }
 }

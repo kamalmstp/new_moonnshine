@@ -44,6 +44,7 @@ class DisposisiResource extends ModelResource
                     'Pending' => 'warning',
                     'Selesai' => 'green',
                     'Ditolak' => 'danger',
+                    'Diproses' => 'blue',
                     default => 'blue'
                 }
             ),
@@ -52,25 +53,47 @@ class DisposisiResource extends ModelResource
 
     protected function formFields(): iterable
     {
+        // ->canSee(fn() => auth('moonshine')->user()->moonshineUserRole->name === 'Kepala Sekolah')
         $suratMasukId = request()->get('surat_masuk_id');
         $showSelectField = is_null($suratMasukId);
+        
+        $isKepalaSekolah = auth('moonshine')->user()->moonshineUserRole->name === 'Kepala Sekolah';
+        $isStaff = auth('moonshine')->user()->moonshineUserRole->name === 'Staff';
+        $isAdmin = auth('moonshine')->user()->moonshineUserRole->name === 'Admin';
 
         return [
             Box::make('Formulir Disposisi', [
-
                 BelongsTo::make('Surat Masuk', 'surat_masuk', resource: SuratMasukResource::class, formatted: 'nomor_surat')
                     ->searchable()
-                    ->canSee(fn() => $showSelectField),
-                Hidden::make('surat_masuk_id')
-                    ->setValue($suratMasukId)
-                    ->canSee(fn() => !is_null($suratMasukId)),
-                BelongsTo::make('Tujuan Disposisi', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
+                    ->readonly(fn() => $isStaff),
+                    
+                BelongsTo::make('Tujuan Disposisi', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap')
+                    ->readonly(fn() => $isStaff),
+                    
                 Date::make('Tanggal Disposisi', 'tgl_disposisi')
-                    ->format('Y-m-d'),
-                Hidden::make('Status Awal', 'status')
-                    ->setValue('Pending'),
+                    ->format('Y-m-d')
+                    ->readonly(fn() => $isStaff),
+                    
                 Textarea::make('Instruksi', 'isi_disposisi')
-                    ->required(),
+                    ->required()
+                    ->readonly(fn() => $isStaff),
+
+                Textarea::make('Respon Staff', 'respon')
+                    ->canSee(fn() => $isStaff),
+                    
+                Select::make('Status', 'status')
+                    ->options([
+                        'Pending' => 'Pending',
+                        'Diproses' => 'Diproses',
+                        'Selesai' => 'Selesai',
+                        'Ditolak' => 'Ditolak',
+                    ])
+                    ->canSee(fn() => $isStaff)
+                    ->default('Pending'),
+
+                Hidden::make('Status Awal', 'status')
+                    ->setValue('Pending')
+                    ->canSee(fn() => !$isStaff),
             ]),
         ];
     }
@@ -83,6 +106,7 @@ class DisposisiResource extends ModelResource
             BelongsTo::make('Pengirim', 'surat_masuk', resource: SuratMasukResource::class, formatted: 'pengirim'),
             BelongsTo::make('Tujuan Disposisi', 'pegawai', resource: PegawaiResource::class, formatted: 'nama_lengkap'),
             Text::make('Instruksi', 'isi_disposisi'),
+            Textarea::make('Respon Staff', 'respon_staff'),
             Date::make('Tanggal Disposisi', 'tgl_disposisi')
                 ->format('d M Y'),
             Select::make('Status', 'status')
@@ -108,13 +132,20 @@ class DisposisiResource extends ModelResource
 
     public function canEdit(mixed $item): bool
     {
-        return auth()->user()->id == $item->penerima_id;
+        $user = auth()->user();
+        $role = $user->moonshineUserRole->name;
+        
+        if (in_array($role, ['Admin', 'Staff', 'Kepala Sekolah'])) {
+            return true;
+        }
     }
 
     protected function rules(mixed $item): array
     {
-        return [
+        $rules = [
             'isi_disposisi' => ['required', 'string'],
         ];
+        
+        return $rules;
     }
 }

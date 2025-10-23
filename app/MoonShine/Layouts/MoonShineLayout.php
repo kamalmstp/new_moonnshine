@@ -136,13 +136,13 @@ final class MoonShineLayout extends AppLayout
             MenuGroup::make('Persuratan & Arsip', [
                 MenuItem::make('Surat Masuk', SuratMasukResource::class)
                     ->icon('inbox')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Surat Keluar', SuratKeluarResource::class)
                     ->icon('paper-airplane')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
                 MenuItem::make('Disposisi', DisposisiResource::class)
                     ->icon('envelope')
-                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekkolah'])),
+                    ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
             ])->icon('inbox')
               ->canSee(fn() => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
 
