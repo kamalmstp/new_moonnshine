@@ -13,6 +13,7 @@ use MoonShine\UI\Components\Modal;
 use MoonShine\Support\ListOf;
 use MoonShine\Contracts\Core\DependencyInjection\FieldsContract;
 use MoonShine\Contracts\UI\ComponentContract;
+use MoonShine\Components\Component;
 use MoonShine\UI\Fields\{ID, Text, Textarea, Hidden, Image, Date, File, Select};
 use MoonShine\UI\Components\Layout\Box;
 use MoonShine\UI\Components\Alert;
@@ -159,13 +160,15 @@ class SuratMasukResource extends ModelResource
     {
         return parent::indexButtons()
             ->add(
-                ActionButton::make('Disposisi', fn($item) => '#')
+                ActionButton::make('Disposisi')
                     ->icon('envelope')
                     ->primary()
+                    ->async()
                     ->inModal(
                         'Buat Disposisi Surat',
-                    )
-                    ->canSee(fn($item) => in_array(auth('moonshine')->user()->moonshineUserRole->name, ['Admin', 'Staff', 'Kepala Sekolah'])),
+                        DisposisiResource::class
+                    ),
+                    // ->canSee(fn($item) => auth('moonshine')->user()->moonshineUserRole->name === 'Kepala Sekolah')
             );
     }
 

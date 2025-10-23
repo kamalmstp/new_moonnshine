@@ -13,4 +13,8 @@ class Disposisi extends Model
     public function surat_masuk() {
         return $this->belongsTo(SuratMasuk::class);
     }
+
+    public function pegawai() {
+        return $this->belongsTo(Pegawai::class);
+    }
 }

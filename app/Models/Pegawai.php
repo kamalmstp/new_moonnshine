@@ -28,4 +28,5 @@ class Pegawai extends Model
     public function pensiun() { return $this->hasMany(Pensiun::class); }
     public function perjalananDinas() { return $this->hasMany(PerjalananDinas::class); }
     public function arsipDokumen() { return $this->hasMany(ArsipDokumen::class); }
+    public function disposisi() { return $this->hasMany(Disposisi::class); }
 }
